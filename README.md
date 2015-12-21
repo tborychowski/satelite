@@ -11,3 +11,5 @@ A desktop sidebar/dashboard concept inspired by [conky](https://github.com/brndn
 
 
 
+### License
+*MIT*
