@@ -1,0 +1,26 @@
+* { box-sizing: border-box; line-height: 1; }
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	font: 14px arial, sans-serif;
+	overflow: hidden;
+	background: rgba(0,0,0,0.2);
+	color: #fff;
+}
+
+a { color: #fff; text-decoration: none; color: inherit; }
+
+#app { padding: 3px 0 0 3px; }
+
+widget { min-width: 50px; min-height: 50px; margin: 0 3px 3px 0;
+	/*display: block; */
+	float: left;
+	padding: 20px 0;
+	background: rgba(0,0,0, 0.7);
+	overflow: hidden;
+}
+widget[size="small"] { width: 50px; height: 50px; }
+widget[size="medium"] { width: 100px; height: 100px; }
+widget[size="large"] { width: auto; margin-right: 3px; float: none; display: block; clear: both; }
