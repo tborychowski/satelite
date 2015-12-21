@@ -1,3 +1,3 @@
-# filmwatcher
+# satelite
 
-PoC
+desktop sidebar/dashboard
