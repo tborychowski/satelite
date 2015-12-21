@@ -27,7 +27,7 @@ app.on('ready', function () {
 		frame: false
 	});
 
-	var bounds = mainWindow.getBounds(), w = 800;
+	var bounds = mainWindow.getBounds(), w = 310;
 	mainWindow.setBounds({
 		y: 0,
 		x: bounds.width + bounds.x - w,
@@ -36,8 +36,9 @@ app.on('ready', function () {
 	});
 
 
-
-	mainWindow.loadURL('file://' + __dirname + '/assets/app.html');
+	setTimeout(function () {
+		mainWindow.loadURL('file://' + __dirname + '/assets/app.html');
+	}, 100);
 
 
 	mainWindow.on('closed', function () { mainWindow = null; });

@@ -43,7 +43,7 @@ function buildHtml (json) {
 				'<div class="weather-date">' + day.day + '</div>' +
 				'<img class="weather-icon" src="../widgets/weather/' + theme + '/' + day.code + '.png" />' +
 				'<div class="weather-temp">' + day.low + '°-' + day.high + '°</div>' +
-				'<div class="weather-desc">' + day.text + '</div>' +
+				// '<div class="weather-desc">' + day.text + '</div>' +
 			'</td>';
 	}).join('');
 

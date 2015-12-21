@@ -8,9 +8,9 @@
 .weather-desc { line-height: 1.6; }
 .weather-wind { line-height: 1.6; font-size: 12px; }
 
-.weather-forecast { margin: 20px 0 0 -10px; table-layout: fixed; width: 106%; }
+.weather-forecast { margin: 20px 0 -5px -10px; table-layout: fixed; width: 107%; }
 .weather-day { vertical-align: top; text-align: center; padding: 10px 5px; background: rgba(0,0,0,0.6); }
-.weather-day .weather-icon { width: 70%; float: none; margin: 10px 0 5px; min-width: 0; }
+.weather-day .weather-icon { width: 80%; float: none; margin: 10px 0; min-width: 0; }
 .weather-day .weather-date { font-size: 14px; }
-.weather-day .weather-temp { font-size: 14px; margin-bottom: 7px; }
-.weather-day .weather-desc { font-size: 11px; overflow: hidden; }
+.weather-day .weather-temp { font-size: 13px; }
+.weather-day .weather-desc { font-size: 11px; margin-top: 7px; overflow: hidden; }
