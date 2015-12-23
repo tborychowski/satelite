@@ -1,65 +1,33 @@
 (function () {
-	var FS = require('fs'),
-		Path = require('path');
-
-	var widgets = {};
-	var widgetsRoot = Path.join(__dirname, '..', 'widgets');
-
-	function getWidgets () {
-
-		FS.readdirSync(widgetsRoot)
-			.filter(function(f) {
-				return FS.statSync(Path.join(widgetsRoot, f)).isDirectory();
-			})
-			.forEach(function (w) {
-				widgets[w] = require(Path.join(widgetsRoot, w, 'index.js'));
-			});
-	}
+	var theme = require('./theme');
+	var widgets = require('./widgets');
+	var shell = require('electron').shell;
 
 
-	function renderThemeTemplate (theme) {
-		var tpl = FS.readFileSync('./themes/' + theme + '/index.html').toString();
-		document.getElementById('app').innerHTML = tpl;
-	}
+	// must be in order
+	theme.render();
+	widgets.init();
+	widgets.injectStyles();
+	theme.injectStyle();
+	widgets.render();
 
 
-	function getWidgetAttrs (el) {
-		var attrs = {};
-		Array.prototype.slice.call(el.attributes).forEach(function(item) {
-			attrs[item.name] = item.value;
-		});
-		return attrs;
-	}
 
+	document.addEventListener('click', function (e) {
+		var el = e.target;
 
-	function injectWidgetsCss () {
-		var head = document.head, link, stat;
-
-		for (var w in widgets) {
-			css = Path.join(widgetsRoot, w, 'index.css');
-			try { stat = FS.statSync(css); } catch (e) { stat = null; }
-			if (!stat || !stat.isFile()) continue;
-			link = document.createElement('link');
-			link.rel = 'stylesheet';
-			link.href = css;
-			head.appendChild(link)
+		// don't open links in itself
+		if (el.matches('widget a') || el.matches('widget a *')) {
+			e.preventDefault();
 		}
-	}
 
-	function initWidgets () {
-		var nodes = document.getElementsByTagName('widget');
-
-		for (var i = 0, node; node = nodes[i]; i++) {
-			var attrs = getWidgetAttrs(node);
-			attrs.interval = (attrs.interval || 1) * 1000
-			if (widgets[attrs.widget]) new widgets[attrs.widget](node, attrs);
-		}
-	}
+		// open links in browser
+		if (el.matches('widget a.link *')) el = el.closest('.link');
+		if (el.matches('widget a.link')) shell.openExternal(el.href);
 
 
-	renderThemeTemplate('default');
-	getWidgets();
-	injectWidgetsCss();
-	initWidgets();
+	});
+
+
 
 }());

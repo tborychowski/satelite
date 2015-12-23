@@ -14,13 +14,9 @@ a { color: #fff; text-decoration: none; color: inherit; }
 
 #app { padding: 3px 0 0 3px; }
 
-widget { min-width: 50px; min-height: 50px; margin: 0 3px 3px 0;
-	/*display: block; */
-	float: left;
-	padding: 20px 0;
-	background: rgba(0,0,0, 0.7);
-	overflow: hidden;
+widget { min-width: 50px; min-height: 50px; margin: 0 3px 3px 0; padding: 20px 0;
+	float: left; overflow: hidden; background: rgba(0,0,0, 0.7);
 }
-widget[size="small"] { width: 50px; height: 50px; }
-widget[size="medium"] { width: 100px; height: 100px; }
+widget[size="small"] { width: 60px; height: 50px; padding: 17px 0; font-size: 16px; text-align: center; }
+widget[size="medium"] { width: 100px; height: 100px; text-align: center; }
 widget[size="large"] { width: auto; margin-right: 3px; float: none; display: block; clear: both; }

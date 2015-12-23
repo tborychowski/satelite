@@ -1,6 +1,6 @@
 var moment = require('moment');
 
-var longDate = 'Do MMMM YYYY',
+var longDate = 'dddd, Do MMMM',
 	shortDate = 'DD/MM/YYYY',
 	hour = 'H:mm';
 
