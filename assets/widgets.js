@@ -5,7 +5,7 @@ var widgets = {},
 	widgetsRoot = Path.join(__dirname, '..', 'widgets'),
 	config = require(Path.join(__dirname, '..', 'config.json'));
 
-if (!config) config = { widgets: {} };
+if (!config || !config.widgets) config = { widgets: {} };
 
 function injectStyle (css) {
 	var link, stat, css;
@@ -50,7 +50,7 @@ function render () {
 	for (var i = 0, node; node = nodes[i]; i++) {
 		attrs = getAttrs(node);
 		attrs.interval = (attrs.interval || 1) * 1000;
-		cfg = config.widgets[attrs.widget];
+		cfg = config.widgets[attrs.widget] || {};
 		if (widgets[attrs.widget]) {
 			new widgets[attrs.widget](node, attrs, cfg);
 		}
