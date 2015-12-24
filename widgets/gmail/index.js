@@ -1,12 +1,12 @@
 var gmail = require('./gmail');
 
-function getHtml (size, resp) {
-	resp = resp || { unread: 0 };
-	var icon = resp.unread ? 'ion-email-unread' : 'ion-email';
-	return '<div class="gmail gmail-' + size + '">' +
-		'<a class="link" href="https://mail.google.com/mail/u/0/#inbox">' +
-			'<i class="' + icon + '"></i> ' + resp.unread +
-		'</a></div>';
+function getHtml (size, data) {
+	data = data || {};
+	var icon = data.unread ? 'ion-email-unread' : 'ion-email';
+	return '<a class="link" href="https://mail.google.com/mail/u/0/#inbox">' +
+			'<i class="' + icon + '"></i> ' +
+			(data.unread ? '<span class="badge">' + data.unread + '</span>' : '')+
+		'</a>';
 }
 
 
@@ -19,8 +19,9 @@ function Widget (el, params, config) {
 
 
 
-Widget.prototype.render = function (resp) {
-	this.el.innerHTML = getHtml(this.size, resp);
+Widget.prototype.render = function (data) {
+	var newHtml = getHtml(this.size, data);
+	if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
 };
 
 

@@ -1,2 +1,10 @@
-.inoreader i { display: inline-block; margin: 0 2px 0 -5px; }
-.inoreader-medium { font-size: 26px; padding-top: 14px; }
+.inoreader i { display: inline-block; vertical-align: sub; }
+
+widget.inoreader:hover { background-color: rgba(0,0,0, 0.6); }
+
+widget[size="small"].inoreader { padding: 0; }
+widget[size="small"].inoreader .link { padding: 7px 0; display: block; }
+widget[size="small"].inoreader .link i { font-size: 36px; }
+
+
+widget[size="medium"].inoreader { font-size: 26px; padding-top: 14px; }

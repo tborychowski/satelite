@@ -1,13 +1,13 @@
 .clock { text-align: center; }
 
-.clock-large { padding-bottom: 10px; }
-.clock-large .clock-hour { font-size: 72px; margin-bottom: 10px; }
-.clock-large .clock-date { font-size: 16px; }
+.clock.large { }
+.clock.large .clock-hour { font-size: 72px; margin-bottom: 10px; }
+.clock.large .clock-date { font-size: 16px; }
 
-.clock-medium { padding-top: 8px; }
-.clock-medium .clock-hour { font-size: 32px; }
-.clock-medium .clock-date { font-size: 14px; }
+.clock.medium { }
+.clock.medium .clock-hour { font-size: 32px; }
+.clock.medium .clock-date { font-size: 14px; }
 
-.clock-small { }
-.clock-small .clock-hour { }
-.clock-small .clock-date { display: none; }
+.clock.small { }
+.clock.small .clock-hour { }
+.clock.small .clock-date { display: none; }

@@ -1,10 +1,10 @@
 var inoreader = require('./inoreader');
 
 function getHtml (size, resp) {
-	return '<div class="inoreader inoreader-' + size + '">' +
-		'<a class="link" href="https://www.inoreader.com/all_articles">' +
-			'<i class="ion-social-rss"></i> ' + resp +
-		'</a></div>';
+	return '<a class="link" href="https://www.inoreader.com/all_articles">' +
+			'<i class="ion-social-rss"></i>' +
+			(resp ? '<span class="badge">' + resp + '</span>' : '') +
+		'</a>';
 }
 
 
@@ -16,8 +16,9 @@ function Widget (el, params, config) {
 }
 
 
-Widget.prototype.render = function (resp) {
-	this.el.innerHTML = getHtml(this.size, resp || 0);
+Widget.prototype.render = function (data) {
+	var newHtml = getHtml(this.size, data);
+	if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
 };
 
 

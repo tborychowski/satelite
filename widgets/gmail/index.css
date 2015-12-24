@@ -1,2 +1,10 @@
-.gmail i { display: inline-block; margin: 0 2px 0 -5px; }
-.gmail-medium { font-size: 26px; padding-top: 14px; }
+.gmail i { display: inline-block; vertical-align: sub; }
+
+widget.gmail:hover { background-color: rgba(0,0,0, 0.6); }
+
+widget[size="small"].gmail { padding: 0; }
+widget[size="small"].gmail .link { padding: 7px 0; display: block; }
+widget[size="small"].gmail .link i { font-size: 36px; }
+
+
+widget[size="medium"].gmail { font-size: 26px; padding-top: 14px; }

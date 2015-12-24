@@ -1,7 +1,7 @@
 var FS = require('fs'),
 	Path = require('path');
 
-var widgets = {},
+var widgets = [],
 	widgetsRoot = Path.join(__dirname, '..', 'widgets'),
 	config = require(Path.join(__dirname, '..', 'config.json'));
 
@@ -33,20 +33,23 @@ function init () {
 
 	for (; node = nodes[i]; i++) {
 		attrs = getAttrs(node);
-		widgets[attrs.widget] = {
+		widgets.push({
+			name: attrs.widget,
 			attrs: attrs,
 			config: config.widgets[attrs.widget] || {},
 			interval: (attrs.interval || 1) * 1000,
 			stylePath: Path.join(widgetsRoot, attrs.widget, 'index.css'),
 			node: node,
 			module: require(Path.join(widgetsRoot, attrs.widget, 'index.js')),
-		};
+		});
 	}
 }
 
 
 function injectWidgetsStyles () {
-	for (var w in widgets) injectStyle(widgets[w].stylePath);
+	widgets.forEach(function (w) {
+		injectStyle(w.stylePath);
+	});
 }
 
 function repeat () {
@@ -55,14 +58,13 @@ function repeat () {
 }
 
 function render () {
-	var name, w;
-	for (name in widgets) {
-		w = widgets[name];
-		if (!w.module) continue;
-		widgets[name].instance = new w.module(w.node, w.attrs, w.config);
-		widgets[name].repeat = repeat.bind(widgets[name]);
-		widgets[name].repeat();
-	}
+	widgets.forEach(function (w) {
+		if (!w.module) return;
+		w.node.classList.add(w.name, w.attrs.size);
+		w.instance = new w.module(w.node, w.attrs, w.config);
+		w.repeat = repeat.bind(w);
+		w.repeat();
+	});
 }
 
 

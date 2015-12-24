@@ -9,10 +9,8 @@ function getHtml (size) {
 	var now = moment(),
 		dateFormat = size === 'large' ? longDate : shortDate;
 
-	return '<div class="clock clock-' + size + '">' +
-		'<div class="clock-hour">' + now.format(hour) + '</div>' +
-		'<div class="clock-date">' + now.format(dateFormat) + '</div>' +
-		'</div>';
+	return '<div class="clock-hour">' + now.format(hour) + '</div>' +
+		'<div class="clock-date">' + now.format(dateFormat) + '</div>';
 }
 
 
@@ -23,7 +21,8 @@ function Widget (el, params) {
 
 
 Widget.prototype.tick = function () {
-	this.el.innerHTML = getHtml(this.size);
+	var newHtml = getHtml(this.size);
+	if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
 };
 
 

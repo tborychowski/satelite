@@ -5,18 +5,41 @@ html, body {
 	height: 100%;
 	width: 100%;
 	font: 14px arial, sans-serif;
-	overflow: hidden;
-	background: rgba(0,0,0,0.2);
+	/*background: rgba(0,0,0,0.2);*/
 	color: #fff;
 }
 
 a { color: #fff; text-decoration: none; color: inherit; }
 
-#app { padding: 3px 0 0 3px; }
+#app { padding: 0 0 0 5px; overflow: hidden; }
 
-widget { min-width: 50px; min-height: 50px; margin: 0 3px 3px 0; padding: 20px 0;
-	float: left; overflow: hidden; background: rgba(0,0,0, 0.7);
+widget { min-width: 50px; min-height: 50px; margin: 0 0 1px 0; padding: 20px 0;
+	float: left; overflow: hidden; cursor: default; user-select: none; position: relative;
+	transition: background 0.4s ease-out;
+	background-color: rgba(0,0,0, 0.4);
 }
-widget[size="small"] { width: 60px; height: 50px; padding: 17px 0; font-size: 16px; text-align: center; }
+
+widget[size="small"] {
+	width: calc(25% - 1px);
+	height: 50px;
+	padding: 17px 0;
+	font-size: 16px;
+	text-align: center;
+	margin-right: 1px;
+}
+widget[size="small"] .link .badge {
+	font-size: 13px;
+	position: absolute;
+	top: 5px;
+	right: 15px;
+	background: #B34C34;
+	border-radius: 100%;
+	padding: 2px 5px;
+	font-weight: bold;
+}
+
+
 widget[size="medium"] { width: 100px; height: 100px; text-align: center; }
-widget[size="large"] { width: auto; margin-right: 3px; float: none; display: block; clear: both; }
+
+
+widget[size="large"] { width: auto; float: none; display: block; clear: both; }
