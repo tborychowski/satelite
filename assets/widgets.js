@@ -27,33 +27,41 @@ function getAttrs (el) {
 }
 
 
+
 function init () {
-	FS.readdirSync(widgetsRoot)
-		.filter(function(f) {
-			return FS.statSync(Path.join(widgetsRoot, f)).isDirectory();
-		})
-		.forEach(function (w) {
-			widgets[w] = require(Path.join(widgetsRoot, w, 'index.js'));
-		});
-}
+	var nodes = document.getElementsByTagName('widget'), node, i = 0, attrs;
 
-
-function injectWidgetsStyles () {
-	for (var w in widgets) {
-		injectStyle(Path.join(widgetsRoot, w, 'index.css'))
+	for (; node = nodes[i]; i++) {
+		attrs = getAttrs(node);
+		widgets[attrs.widget] = {
+			attrs: attrs,
+			config: config.widgets[attrs.widget] || {},
+			interval: (attrs.interval || 1) * 1000,
+			stylePath: Path.join(widgetsRoot, attrs.widget, 'index.css'),
+			node: node,
+			module: require(Path.join(widgetsRoot, attrs.widget, 'index.js')),
+		};
 	}
 }
 
 
+function injectWidgetsStyles () {
+	for (var w in widgets) injectStyle(widgets[w].stylePath);
+}
+
+function repeat () {
+	this.instance.tick.call(this.instance);
+	setTimeout(this.repeat.bind(this), this.interval);
+}
+
 function render () {
-	var nodes = document.getElementsByTagName('widget'), attrs, cfg;
-	for (var i = 0, node; node = nodes[i]; i++) {
-		attrs = getAttrs(node);
-		attrs.interval = (attrs.interval || 1) * 1000;
-		cfg = config.widgets[attrs.widget] || {};
-		if (widgets[attrs.widget]) {
-			new widgets[attrs.widget](node, attrs, cfg);
-		}
+	var name, w;
+	for (name in widgets) {
+		w = widgets[name];
+		if (!w.module) continue;
+		widgets[name].instance = new w.module(w.node, w.attrs, w.config);
+		widgets[name].repeat = repeat.bind(widgets[name]);
+		widgets[name].repeat();
 	}
 }
 

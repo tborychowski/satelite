@@ -38,19 +38,10 @@ function getHtml (json) {
 function Widget (el, params, config) {
 	this.el = el;
 	this.size = params.size;
-	this.interval = params.interval;
 	this.config = Object.assign({ woeid: params.woeid || '560743' }, config || {});
 	this.render();
-	this.tick();
 }
 
-
-
-Widget.prototype.reload = function () {
-	weather(this.config.woeid)
-		.then(this.render.bind(this))
-		.catch(console.error.bind(console));
-};
 
 
 Widget.prototype.render = function (data) {
@@ -59,8 +50,9 @@ Widget.prototype.render = function (data) {
 
 
 Widget.prototype.tick = function () {
-	this.reload();
-	setTimeout(this.tick.bind(this), this.interval);
+	weather(this.config.woeid)
+		.then(this.render.bind(this))
+		.catch(console.error.bind(console));
 };
 
 

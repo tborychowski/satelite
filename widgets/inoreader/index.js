@@ -11,29 +11,22 @@ function getHtml (size, resp) {
 function Widget (el, params, config) {
 	this.el = el;
 	this.size = params.size;
-	this.interval = params.interval;
 	this.config = config;
-	this.render(0);
-	this.tick();
+	this.render();
 }
 
 
-Widget.prototype.reload = function () {
+Widget.prototype.render = function (resp) {
+	this.el.innerHTML = getHtml(this.size, resp || 0);
+};
+
+
+Widget.prototype.tick = function () {
 	inoreader
 		.config(this.config)
 		.then(inoreader.getTotalCount)
 		.then(this.render.bind(this))
 		.catch(function (err) { console.error('' + err); })
-}
-
-Widget.prototype.render = function (resp) {
-	this.el.innerHTML = getHtml(this.size, resp);
-};
-
-
-Widget.prototype.tick = function () {
-	this.reload();
-	setTimeout(this.tick.bind(this), this.interval);
 };
 
 

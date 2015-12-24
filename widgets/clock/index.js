@@ -19,18 +19,11 @@ function getHtml (size) {
 function Widget (el, params) {
 	this.el = el;
 	this.size = params.size;
-	this.interval = params.interval;
-	this.tick();
 }
-
-Widget.prototype.render = function () {
-	this.el.innerHTML = getHtml(this.size);
-};
 
 
 Widget.prototype.tick = function () {
-	this.render();
-	setTimeout(this.tick.bind(this), this.interval);
+	this.el.innerHTML = getHtml(this.size);
 };
 
 
