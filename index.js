@@ -22,7 +22,7 @@ app.on('ready', function () {
 		y: 0,
 		width: screenSize.width,
 		height: screenSize.height,
-		icon:'assets/icon.png',
+		icon:'assets/satelite.png',
 		transparent: true,
 		frame: false
 	});
