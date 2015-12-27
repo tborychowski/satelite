@@ -10,7 +10,6 @@ A desktop sidebar/dashboard concept inspired by [conky](https://github.com/brndn
    - gmail - get the unread messages count
    - inoreader - get the unread feeds count
    - shortcuts - shortcuts to folders or apps
-
 - it allows to easily create custom ones (javascript + html + css)
 - it is node-based - so you have access to all the node-power to create custom plugins/services
 - it has access to the host OS, so if you can run something in terminal - you can do here 
