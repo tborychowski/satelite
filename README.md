@@ -41,7 +41,7 @@ Some widgets might require a config. The structure is very simple:
 	}
 }
 ```
-See [`config-sample.json`](https://github.com/tborychowski/satelite/blob/master/config-sample.js) for more real-world examples.
+See [`config-sample.json`](https://github.com/tborychowski/satelite/blob/master/config-sample.json) for more real-world examples.
 
 
 
