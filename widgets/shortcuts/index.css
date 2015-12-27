@@ -1,0 +1,23 @@
+.shortcuts { padding: 0 0 10px 0; }
+
+.shortcuts i { display: inline-block; vertical-align: sub; font-size: 26px; margin-right: 10px; }
+
+.shortcuts h1 { font-size: 16px; font-weight: normal; text-align: center; text-transform: uppercase;
+	margin: 0; padding: 15px 10px 10px 10px;
+}
+.shortcuts ul { padding: 0; margin: 0; list-style: none; text-align: left; }
+
+.shortcuts a { display: block; padding: 5px 20px; transition: background-color .3s ease-out; }
+.shortcuts a:hover { background-color: rgba(0,0,0, 0.3); }
+
+
+
+.shortcuts.medium { width: 50%; height: auto; }
+.shortcuts.medium+.shortcuts.medium { margin-right: 1px; width: calc(50% - 1px); }
+
+
+widget[size="small"].shortcuts { padding: 0; }
+widget[size="small"].shortcuts ul { text-align: center; }
+widget[size="small"].shortcuts .link { padding: 7px 0; display: block; }
+widget[size="small"].shortcuts .link i { font-size: 36px; margin: 0; }
+widget[size="small"].shortcuts .name { display: none; }

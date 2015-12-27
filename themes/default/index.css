@@ -14,7 +14,7 @@ a { color: #fff; text-decoration: none; color: inherit; }
 #app { padding: 0 0 0 5px; overflow: hidden; }
 
 widget { min-width: 50px; min-height: 50px; margin: 0 0 1px 0; padding: 20px 0;
-	float: left; overflow: hidden; cursor: default; user-select: none; position: relative;
+	float: right; overflow: hidden; cursor: default; user-select: none; position: relative;
 	transition: background 0.4s ease-out;
 	background-color: rgba(0,0,0, 0.4);
 }

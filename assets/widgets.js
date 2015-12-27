@@ -36,8 +36,8 @@ function init () {
 		widgets.push({
 			name: attrs.widget,
 			attrs: attrs,
-			config: config.widgets[attrs.widget] || {},
-			interval: (attrs.interval || 1) * 1000,
+			config: config.widgets[attrs.config || attrs.widget] || {},
+			interval: (attrs.interval ? attrs.interval * 1000 : null),
 			stylePath: Path.join(widgetsRoot, attrs.widget, 'index.css'),
 			node: node,
 			module: require(Path.join(widgetsRoot, attrs.widget, 'index.js')),
@@ -47,14 +47,19 @@ function init () {
 
 
 function injectWidgetsStyles () {
+	var styles = {};
 	widgets.forEach(function (w) {
-		injectStyle(w.stylePath);
+		styles[w.stylePath] = 1;	// for uniqueness
 	});
+	styles = Object.keys(styles);
+
+	styles.forEach(injectStyle);
 }
 
 function repeat () {
+	// console.log(this.name);
 	this.instance.tick.call(this.instance);
-	setTimeout(this.repeat.bind(this), this.interval);
+	if (this.interval) setTimeout(this.repeat.bind(this), this.interval);
 }
 
 function render () {

@@ -2,6 +2,7 @@
 	var theme = require('./theme');
 	var widgets = require('./widgets');
 	var shell = require('electron').shell;
+	var exec = require('child_process').exec;
 
 
 	// must be in order
@@ -23,7 +24,12 @@
 
 		// open links in browser
 		if (el.matches('widget a.link *')) el = el.closest('.link');
-		if (el.matches('widget a.link')) shell.openExternal(el.href);
+		if (el.matches('widget a.cmd')) {
+			exec(el.getAttribute('href'), function (err) {
+				if (err) console.error(err);
+			});
+		}
+		else if (el.matches('widget a.link')) shell.openExternal(el.href);
 
 
 	});

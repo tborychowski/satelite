@@ -24,7 +24,7 @@ function onSearch (resolve, reject) {
 		if (!results || !results.length) {
 			imap.end();
 			successResult.msg = 'You have no unread messages!';
-			resolve(successResult);
+			return resolve(successResult);
 		}
 
 		fetch = imap.fetch(results, { bodies: '' });
