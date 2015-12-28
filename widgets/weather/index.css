@@ -1,7 +1,7 @@
 .weather { padding: 0; }
 
 .weather-today { overflow: hidden; margin: 20px 5px 0; }
-.weather-icon { float: right; clear: right; margin: 5px 10px 0 -60px; width: 60%; min-width: 128px; }
+.weather-icon { float: right; clear: right; margin: 5px 10px 0 -60px; width: 60%; min-width: 128px; max-width: 300px; }
 .weather-badge { float: right; clear: right; margin: 4px 7px -2em 0; font-size: 19px; }
 
 .weather-today-text { float: left; width: 30%; min-width: 120px; padding-left: 10px; }

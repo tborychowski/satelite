@@ -11,9 +11,7 @@
 .shortcuts a:hover { background-color: rgba(0,0,0, 0.3); }
 
 
-
-.shortcuts.medium { width: 50%; height: auto; }
-.shortcuts.medium+.shortcuts.medium { margin-right: 1px; width: calc(50% - 1px); }
+.shortcuts.medium { height: auto; }
 
 
 widget[size="small"].shortcuts { padding: 0; }

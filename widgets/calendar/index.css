@@ -1,0 +1,6 @@
+widget[size="large"].calendar,
+widget[size="medium"].calendar,
+widget[size="small"].calendar { text-align: left; }
+
+.calendar { padding: 10px; }
+.calendar ul { margin: 0; padding: 0 0 0 15px; }

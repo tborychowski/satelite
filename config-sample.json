@@ -1,5 +1,8 @@
 {
 	"widgets": {
+		"calendar": [
+			"https://calendar.google.com/calendar/ical/en.irish%23holiday%40group.v.calendar.google.com/public/basic.ics"
+		],
 		"inoreader": {
 			"appId": 0000000000,
 			"appKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
