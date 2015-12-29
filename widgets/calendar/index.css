@@ -2,5 +2,13 @@ widget[size="large"].calendar,
 widget[size="medium"].calendar,
 widget[size="small"].calendar { text-align: left; }
 
-.calendar { padding: 10px; }
-.calendar ul { margin: 0; padding: 0 0 0 15px; }
+.calendar { padding: 10px 15px 20px; }
+
+.calendar h1 { font-size: 16px; font-weight: normal; text-align: left;
+	margin: 10px 0 0; padding: 5px 0; text-transform: uppercase;
+	/*border-bottom: 1px solid rgba(255,255,255,0.1);*/
+}
+.calendar ul { margin: 0; padding: 0; list-style: none; }
+.calendar .event { padding: 5px; margin-left: 20px; }
+.calendar .event.fullday { color: rgba(255,255,255,0.5); }
+.calendar .event em { font-weight: bold; font-style: normal; padding-right: 10px; }

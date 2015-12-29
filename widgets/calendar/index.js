@@ -1,25 +1,26 @@
 var calendar = require('./calendar');
-var moment = require('moment');
 
-function getDate (date) {
-	var d = moment(date), now = moment().startOf('day');
-	if (d.valueOf() <= now.valueOf()) d = now;
-	return d.format('YYYY-MM-DD');
+function getEventHtml (ev) {
+	var cls = ev.fullday ? 'event fullday' : 'event',
+		time = ev.fullday ? '' : '<em>' + ev.start.format('HH:mm') + '</em>';
+	return '<li class="' + cls + '">' + time + ev.summary + '</li>';
 }
 
 function getHtml (size, data) {
 	data = data || [];
-	var list = data.map(function (ev) {
-		return '<li>' + getDate(ev.dtstart) + '&nbsp; ' + ev.summary + '</li>';
-	});
-	return '<ul>' + list.join('') + '</ul>';
+	return data.map(function (day) {
+		return '<h1>' + day.day + '</h1><ul>' + day.events.map(getEventHtml).join('') + '</ul>';
+	}).join('');
 }
+
+
 
 
 function Widget (el, params, config) {
 	this.el = el;
 	this.size = params.size;
 	this.config = config;
+	this.showDays = params.showdays || 2; // show agenda for this many days
 	this.render();
 }
 
@@ -33,7 +34,8 @@ Widget.prototype.render = function (data) {
 Widget.prototype.tick = function () {
 	calendar
 		.getAgenda(this.config)
-		.then(calendar.limitTo(3))
+		.then(calendar.limitTo(this.showDays))
+		.then(calendar.groupByDays(this.showDays))
 		.then(this.render.bind(this))
 		.catch(function (err) { console.error('' + err); })
 };
