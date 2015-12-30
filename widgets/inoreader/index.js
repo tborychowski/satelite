@@ -1,4 +1,5 @@
 var inoreader = require('./inoreader');
+var Path = require('path');
 
 function getHtml (size, resp) {
 	return '<a class="link" href="https://www.inoreader.com/all_articles">' +
@@ -15,10 +16,20 @@ function Widget (el, params, config) {
 	this.render();
 }
 
+Widget.prototype.notify = function (data) {
+	if (!data) return;
+	new Notification('Inoreader', {
+		body: 'You have ' + data + ' unread feed' + (data > 1 ? 's' : ''),
+		icon: 'file://' + Path.resolve(__dirname, 'icon.png')
+	});
+}
 
 Widget.prototype.render = function (data) {
 	var newHtml = getHtml(this.size, data);
-	if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
+	if (this.oldHtml !== newHtml) {
+		this.notify(data);
+		this.el.innerHTML = this.oldHtml = newHtml;
+	}
 };
 
 

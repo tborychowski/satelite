@@ -60,7 +60,7 @@ function onSearch (resolve, reject) {
 
 function check (config) {
 	init(config);
-
+	successResult = {};
 	return new Promise(function (resolve, reject) {
 		imap.once('ready', function () {
 			imap.openBox('INBOX', true, function (err, box) {

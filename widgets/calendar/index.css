@@ -2,7 +2,15 @@ widget[size="large"].calendar,
 widget[size="medium"].calendar,
 widget[size="small"].calendar { text-align: left; }
 
-.calendar { padding: 10px 15px 20px; }
+.calendar { padding: 10px 15px 20px; min-height: 100px; }
+
+.calendar .badge { position: absolute;
+	right: 20px;
+	top: 20px;
+	z-index: -1;
+	font-size: 72px;
+	color: rgba(255,255,255,0.2);
+}
 
 .calendar h1 { font-size: 16px; font-weight: normal; text-align: left;
 	margin: 10px 0 0; padding: 5px 0; text-transform: uppercase;

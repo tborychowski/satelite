@@ -10,7 +10,7 @@ function getHtml (size, data) {
 	data = data || [];
 	return data.map(function (day) {
 		return '<h1>' + day.day + '</h1><ul>' + day.events.map(getEventHtml).join('') + '</ul>';
-	}).join('');
+	}).join('') + '<i class="badge ion-calendar"></i>';
 }
 
 
