@@ -1,4 +1,5 @@
 var gmail = require('./gmail');
+var Path = require('path');
 
 function getHtml (size, data) {
 	var icon = data.unread ? 'ion-email-unread' : 'ion-email';
@@ -23,7 +24,7 @@ Widget.prototype.notify = function (data) {
 		body: 'You have ' + data + ' unread message' + (data > 1 ? 's' : ''),
 		icon: 'file://' + Path.resolve(__dirname, 'icon.png')
 	});
-}
+};
 
 
 Widget.prototype.render = function (data) {

@@ -22,7 +22,7 @@ Widget.prototype.notify = function (data) {
 		body: 'You have ' + data + ' unread feed' + (data > 1 ? 's' : ''),
 		icon: 'file://' + Path.resolve(__dirname, 'icon.png')
 	});
-}
+};
 
 Widget.prototype.render = function (data) {
 	var newHtml = getHtml(this.size, data);
@@ -38,7 +38,7 @@ Widget.prototype.tick = function () {
 		.config(this.config)
 		.then(inoreader.getTotalCount)
 		.then(this.render.bind(this))
-		.catch(function (err) { console.error('' + err); })
+		.catch(function (err) { console.error('' + err); });
 };
 
 

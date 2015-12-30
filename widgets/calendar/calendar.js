@@ -135,7 +135,7 @@ function momentize (events) {
 		if (ev.recurrent) ev = updateRecurrentEvent(ev);	// update recurrent events
 	});
 	return events;
-};
+}
 
 
 function limitTo (days) {
@@ -144,7 +144,7 @@ function limitTo (days) {
 		var lim = new Date();
 		lim.setDate(lim.getDate() + days);
 		return events.filter(function (ev) { return ev.dtstart <= lim; });
-	}
+	};
 }
 
 
@@ -165,8 +165,8 @@ function groupByDays (showDays) {
 			showDays--;
 		}
 		return days;
-	}
-};
+	};
+}
 
 
 function getAgenda (config) {

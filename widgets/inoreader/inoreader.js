@@ -2,13 +2,13 @@ var request = require('request-promise');
 var rootUrl = 'https://www.inoreader.com';
 var apiUrl = rootUrl + '/reader/api/0';
 var config = {
-	appId: 0000000000,
+	appId: 1111111111,
 	appKey: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
 	appName: 'myapp-name',
 	token: '',
 	login: '',
 	pass: ''
-}
+};
 
 
 function getRequest (url, data) {

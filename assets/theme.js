@@ -4,13 +4,13 @@ var FS = require('fs'),
 var themesRoot = Path.join(__dirname, '..', 'themes'), theme = 'default';
 
 function injectStyle (css) {
-	var link, stat, css;
+	var link, stat;
 	try { stat = FS.statSync(css); } catch (e) { stat = null; }
 	if (!stat || !stat.isFile()) return;
 	link = document.createElement('link');
 	link.rel = 'stylesheet';
 	link.href = css;
-	document.head.appendChild(link)
+	document.head.appendChild(link);
 }
 
 
@@ -21,7 +21,7 @@ function render () {
 }
 
 function injectThemeStyle () {
-	injectStyle(Path.join(themesRoot, theme, 'index.css'))
+	injectStyle(Path.join(themesRoot, theme, 'index.css'));
 }
 
 

@@ -13,7 +13,7 @@ function getForecastHtml (day) {
 }
 
 function getHtml (json) {
-	json = json || { forecast: [1,1,1,1,1] }
+	json = json || { forecast: [1,1,1,1,1] };
 	var forecast = json.forecast.map(getForecastHtml).join('');
 
 	return '<div class="weather-today">' +

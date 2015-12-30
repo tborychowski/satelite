@@ -55,7 +55,7 @@ function onSearch (resolve, reject) {
 
 			resolve(successResult);
 		});
-	}
+	};
 }
 
 function check (config) {
@@ -72,7 +72,7 @@ function check (config) {
 		});
 		imap.connect();
 	});
-};
+}
 
 module.exports = {
 	check: check

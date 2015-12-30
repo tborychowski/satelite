@@ -8,13 +8,13 @@ var widgets = [],
 if (!config || !config.widgets) config = { widgets: {} };
 
 function injectStyle (css) {
-	var link, stat, css;
+	var link, stat;
 	try { stat = FS.statSync(css); } catch (e) { stat = null; }
 	if (!stat || !stat.isFile()) return;
 	link = document.createElement('link');
 	link.rel = 'stylesheet';
 	link.href = css;
-	document.head.appendChild(link)
+	document.head.appendChild(link);
 }
 
 

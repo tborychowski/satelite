@@ -37,7 +37,7 @@ Widget.prototype.tick = function () {
 		.then(calendar.limitTo(this.showDays))
 		.then(calendar.groupByDays(this.showDays))
 		.then(this.render.bind(this))
-		.catch(function (err) { console.error('' + err); })
+		.catch(function (err) { console.error('' + err); });
 };
 
 
