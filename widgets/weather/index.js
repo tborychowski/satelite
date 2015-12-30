@@ -1,6 +1,7 @@
-var weather = require('./weather');
-var theme = 'img-real';
+'use strict';
 
+const weather = require('./weather');
+const theme = 'img-real';
 
 function getForecastHtml (day) {
 	day = day || {};
@@ -14,8 +15,7 @@ function getForecastHtml (day) {
 
 function getHtml (json) {
 	json = json || { forecast: [1,1,1,1,1] };
-	var forecast = json.forecast.map(getForecastHtml).join('');
-
+	let forecast = json.forecast.map(getForecastHtml).join('');
 	return '<div class="weather-today">' +
 			'<div class="weather-today-text">' +
 				'<div class="weather-location"><a class="link" href="' + (json.rssLink || '#') + '">' +
@@ -34,27 +34,25 @@ function getHtml (json) {
 }
 
 
-function Widget (el, params, config) {
-	this.el = el;
-	this.size = params.size;
-	this.config = Object.assign({ woeid: params.woeid || '560743' }, config || {});
-	this.render();
+class Widget {
+	constructor (el, params, config) {
+		this.el = el;
+		this.size = params.size;
+		this.config = Object.assign({ woeid: params.woeid || '560743' }, config || {});
+		this.render();
+	}
+
+	render (data) {
+		let newHtml = getHtml(data);
+		if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
+	}
+
+	tick () {
+		weather(this.config.woeid)
+			.then(this.render.bind(this))
+			.catch(console.error.bind(console));
+	}
 }
-
-
-
-Widget.prototype.render = function (data) {
-	var newHtml = getHtml(data);
-	if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
-};
-
-
-Widget.prototype.tick = function () {
-	weather(this.config.woeid)
-		.then(this.render.bind(this))
-		.catch(console.error.bind(console));
-};
-
 
 module.exports = Widget;
 

@@ -1,5 +1,7 @@
-var gmail = require('./gmail');
-var Path = require('path');
+'use strict';
+
+const gmail = require('./gmail');
+const Path = require('path');
 
 function getHtml (size, data) {
 	var icon = data.unread ? 'ion-email-unread' : 'ion-email';
@@ -10,37 +12,35 @@ function getHtml (size, data) {
 }
 
 
-function Widget (el, params, config) {
-	this.el = el;
-	this.size = params.size;
-	this.config = config;
-	this.render();
-}
-
-
-Widget.prototype.notify = function (data) {
-	if (!data) return;
-	new Notification('Gmail', {
-		body: 'You have ' + data + ' unread message' + (data > 1 ? 's' : ''),
-		icon: 'file://' + Path.resolve(__dirname, 'icon.png')
-	});
-};
-
-
-Widget.prototype.render = function (data) {
-	data = data || {};
-	var newHtml = getHtml(this.size, data);
-	if (this.oldHtml !== newHtml) {
-		this.notify(data.unread);
-		this.el.innerHTML = this.oldHtml = newHtml;
+class Widget {
+	constructor (el, params, config) {
+		this.el = el;
+		this.size = params.size;
+		this.config = config;
+		this.render();
 	}
-};
 
+	notify (data) {
+		if (!data) return;
+		new Notification('Gmail', {
+			body: 'You have ' + data + ' unread message' + (data > 1 ? 's' : ''),
+			icon: 'file://' + Path.resolve(__dirname, 'icon.png')
+		});
+	}
 
-Widget.prototype.tick = function () {
-	gmail.check(this.config)
-		.then(this.render.bind(this));
-};
+	render (data) {
+		data = data || {};
+		var newHtml = getHtml(this.size, data);
+		if (this.oldHtml !== newHtml) {
+			this.notify(data.unread);
+			this.el.innerHTML = this.oldHtml = newHtml;
+		}
+	}
 
+	tick () {
+		gmail.check(this.config)
+			.then(this.render.bind(this));
+	}
+}
 
 module.exports = Widget;

@@ -1,18 +1,11 @@
-const app = require('app'); // Module to control application life.
-const BrowserWindow = require('browser-window'); // Module to create native browser window.
 const electron = require('electron');
+const app = require('app');							// Module to control application life.
+const BrowserWindow = require('browser-window');	// Module to create native browser window.
+const Menu = electron.Menu;
+const Tray = electron.Tray;
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = null;
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-	app.quit();
-});
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
 app.on('ready', function () {
 	var screenSize = electron.screen.getPrimaryDisplay().workAreaSize;
 
@@ -24,7 +17,9 @@ app.on('ready', function () {
 		height: screenSize.height,
 		icon:'assets/satelite.png',
 		transparent: true,
-		frame: false
+		frame: false,
+		autoHideMenuBar: true,
+		skipTaskbar: true,
 	});
 
 	var bounds = mainWindow.getBounds(), w = 310;
@@ -35,6 +30,16 @@ app.on('ready', function () {
 		height: bounds.height
 	});
 
+	// tray icon
+	var appIcon = new Tray('assets/satelite-tray.png');
+	var contextMenu = Menu.buildFromTemplate([
+		{ label: 'Satelite', type: 'normal', enabled: false },
+		{ type: 'separator' },
+		{ label: 'Quit', type: 'normal', click: function () { mainWindow.close(); }}
+	]);
+	appIcon.setToolTip('Satelite');
+	appIcon.setContextMenu(contextMenu);
+
 
 	setTimeout(function () {
 		mainWindow.loadURL('file://' + __dirname + '/assets/app.html');
@@ -43,3 +48,5 @@ app.on('ready', function () {
 
 	mainWindow.on('closed', function () { mainWindow = null; });
 });
+
+app.on('window-all-closed', function () { app.quit(); });

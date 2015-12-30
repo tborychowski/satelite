@@ -1,6 +1,8 @@
-var moment = require('moment');
+'use strict';
 
-var longDate = 'dddd, Do MMMM',
+const moment = require('moment');
+
+let longDate = 'dddd, Do MMMM',
 	shortDate = 'DD/MM/YYYY',
 	hour = 'H:mm';
 
@@ -14,16 +16,16 @@ function getHtml (size) {
 }
 
 
-function Widget (el, params) {
-	this.el = el;
-	this.size = params.size;
+class Widget {
+	constructor(el, params) {
+		this.el = el;
+		this.size = params.size;
+	}
+
+	tick() {
+		let newHtml = getHtml(this.size);
+		if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
+	}
 }
-
-
-Widget.prototype.tick = function () {
-	var newHtml = getHtml(this.size);
-	if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
-};
-
 
 module.exports = Widget;

@@ -1,6 +1,8 @@
 .shortcuts { padding: 0 0 10px 0; }
 
-.shortcuts i { display: inline-block; vertical-align: sub; font-size: 26px; margin-right: 10px; }
+.shortcuts i { display: inline-block; vertical-align: sub; text-align: center;
+	font-size: 26px; margin-right: 10px; width: 20px;
+}
 
 .shortcuts h1 { font-size: 16px; font-weight: normal; text-align: center; text-transform: uppercase;
 	margin: 0; padding: 15px 10px 10px 10px;

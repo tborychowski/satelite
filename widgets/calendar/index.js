@@ -1,4 +1,6 @@
-var calendar = require('./calendar');
+'use strict';
+
+const calendar = require('./calendar');
 
 function getEventHtml (ev) {
 	var cls = ev.fullday ? 'event fullday' : 'event',
@@ -16,29 +18,29 @@ function getHtml (size, data) {
 
 
 
-function Widget (el, params, config) {
-	this.el = el;
-	this.size = params.size;
-	this.config = config;
-	this.showDays = params.showdays || 2; // show agenda for this many days
-	this.render();
+class Widget {
+	constructor (el, params, config) {
+		this.el = el;
+		this.size = params.size;
+		this.config = config;
+		this.showDays = params.showdays || 2; // show agenda for this many days
+		this.render();
+	}
+
+	render (data) {
+		let newHtml = getHtml(this.size, data);
+		if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
+	}
+
+	tick () {
+		calendar
+			.getAgenda(this.config)
+			.then(calendar.limitTo(this.showDays))
+			.then(calendar.groupByDays(this.showDays))
+			.then(this.render.bind(this))
+			.catch(function (err) { console.error('' + err); });
+	}
 }
-
-
-Widget.prototype.render = function (data) {
-	var newHtml = getHtml(this.size, data);
-	if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
-};
-
-
-Widget.prototype.tick = function () {
-	calendar
-		.getAgenda(this.config)
-		.then(calendar.limitTo(this.showDays))
-		.then(calendar.groupByDays(this.showDays))
-		.then(this.render.bind(this))
-		.catch(function (err) { console.error('' + err); });
-};
 
 
 module.exports = Widget;

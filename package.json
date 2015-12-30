@@ -8,6 +8,8 @@
   },
   "main": "index.js",
   "dependencies": {
+    "diskspace": "^1.0.2",
+    "drivelist": "^2.0.4",
     "imap": "^0.8.16",
     "ionicons": "^2.0.1",
     "moment": "^2.10.6",

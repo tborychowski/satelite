@@ -1,0 +1,32 @@
+.disks { padding: 10px 0; }
+
+.disks i { display: inline-block; vertical-align: sub; text-align: center;
+	font-size: 26px; margin-right: 10px; width: 20px;
+}
+
+/*.disks h1 { font-size: 16px; font-weight: normal; text-align: center; text-transform: uppercase;
+	margin: 0; padding: 15px 10px 10px 10px;
+}
+*/
+.disks ul { padding: 0; margin: 0; list-style: none; text-align: left; }
+
+.disks a { display: block; padding: 10px 20px; transition: background-color .3s ease-out; }
+.disks a:hover { background-color: rgba(0,0,0, 0.3); }
+
+.disks .name { display: inline-block; max-width: 60%; overflow: hidden; text-overflow: ellipsis; }
+.disks .size { float: right; clear: right; margin: 6px 0 0 -100px; color: #aaa; }
+
+.disks .sizebar { background: rgba(0,0,0,0.2); border-radius: 10px; height: 4px; overflow: hidden; }
+.disks .sizebar-inner { background: rgba(255,255,255,0.4); border-radius: 10px; height: 100%; }
+
+
+
+
+.disks.medium { height: auto; }
+
+
+widget[size="small"].disks { padding: 0; }
+widget[size="small"].disks ul { text-align: center; }
+widget[size="small"].disks .link { padding: 7px 0; display: block; }
+widget[size="small"].disks .link i { font-size: 36px; margin: 0; }
+widget[size="small"].disks .name { display: none; }
