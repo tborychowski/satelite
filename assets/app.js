@@ -32,12 +32,10 @@
 		}
 		else if (el.matches('widget a.link')) {
 			var lnk = el.getAttribute('href');
-			if (lnk && lnk !== '#') shell.openExternal(lnk);
+			if (lnk && lnk !== '#') shell.openExternal(el.href);
 		}
 
-
 	});
-
 
 
 }());

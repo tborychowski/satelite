@@ -34,6 +34,7 @@ function getTrashSize (t) {
 	return new Promise(function (resolve, reject) {
 
 		// TODO: update for Win and OSX
+		// maybe count items (for unix too)
 
 		exec('du -sB1 ' + t, function (err, stdout) {
 			if (err) return reject(err);
@@ -50,6 +51,7 @@ function getSizes (trashes) {
 			var sum = data.reduce(function(pv, cv) { return pv + cv; }, 0);
 			sum = sum / 1024 / 1024;
 			sum = Math.round(sum * 100) / 100;
+			if (sum < 0.28) return 0;
 			return sum + ' MB';
 		});
 }
