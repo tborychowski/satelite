@@ -10,11 +10,13 @@ function getEventHtml (ev) {
 
 function getHtml (size, data) {
 	data = data || [];
-	return data.map(function (day) {
-		return '<h1>' + day.day + '</h1><ul>' + day.events.map(getEventHtml).join('') + '</ul>';
-	}).join('') + '<i class="badge ion-calendar"></i>';
+	return '<div class="scroller">' +
+		data.map(function (day) {
+			return '<h1>' + day.day + '</h1><ul>' + day.events.map(getEventHtml).join('') + '</ul>';
+		}).join('') +
+		'</div>' +
+		'<i class="badge ion-calendar"></i>';
 }
-
 
 
 
@@ -24,6 +26,9 @@ class Widget {
 		this.size = params.size;
 		this.config = config;
 		this.showDays = params.showdays || 2; // show agenda for this many days
+
+		if (params.height) this.el.style.height = params.height + 'px';
+
 		this.render();
 	}
 

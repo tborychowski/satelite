@@ -2,10 +2,14 @@ widget[size="large"].calendar,
 widget[size="medium"].calendar,
 widget[size="small"].calendar { text-align: left; }
 
-.calendar { padding: 10px 15px 20px; min-height: 100px; }
+.calendar { min-height: 100px; }
+
+.calendar .scroller { overflow-y: scroll; padding: 10px 15px 20px;
+	position: absolute; top: 0; bottom: 0; left: 0; right: -20px;
+}
 
 .calendar .badge { position: absolute;
-	right: 20px;
+	right: 40px;
 	top: 20px;
 	z-index: -1;
 	font-size: 72px;
@@ -14,12 +18,8 @@ widget[size="small"].calendar { text-align: left; }
 
 .calendar h1 { font-size: 16px; font-weight: normal; text-align: left;
 	margin: 10px 0 0; padding: 5px 0; text-transform: uppercase;
-	/*border-bottom: 1px solid rgba(255,255,255,0.1);*/
 }
 .calendar ul { margin: 0; padding: 0; list-style: none; }
 .calendar .event { padding: 5px; margin-left: 20px; }
 .calendar .event.fullday { color: rgba(255,255,255,0.5); }
 .calendar .event em { font-weight: bold; font-style: normal; padding-right: 10px; }
-
-
-.calendar.large { max-height: 237px; }

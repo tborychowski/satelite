@@ -2,11 +2,12 @@
 
 const trash = require('./trash');
 
-function getHtml (size) {
-	if (!size) return '<i class="ion-trash-a empty"></i>';
+function getHtml (data) {
+	if (!data || !data.size) return '<i class="ion-trash-a empty"></i>';
 
 	return '<i class="ion-trash-a"></i>' +
-		'<span class="size">' + size + '</span>' +
+		'<span class="size">' + data.size + ' MB</span>' +
+		'<span class="items">' + data.items + ' item' + (data.items > 1 ? 's' : '') + '</span>' +
 		'<a href="#" class="link empty-trash">empty</a>';
 }
 
@@ -24,7 +25,7 @@ class Widget {
 	}
 
 	render (data) {
-		let newHtml = getHtml.call(this, data || '');
+		let newHtml = getHtml.call(this, data || {});
 		if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
 	}
 
