@@ -20,3 +20,6 @@ widget[size="small"].calendar { text-align: left; }
 .calendar .event { padding: 5px; margin-left: 20px; }
 .calendar .event.fullday { color: rgba(255,255,255,0.5); }
 .calendar .event em { font-weight: bold; font-style: normal; padding-right: 10px; }
+
+
+.calendar.large { max-height: 237px; }

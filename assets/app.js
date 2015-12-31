@@ -25,11 +25,15 @@
 		// open links in browser
 		if (el.matches('widget a.link *')) el = el.closest('.link');
 		if (el.matches('widget a.cmd')) {
-			exec(el.getAttribute('href'), function (err) {
+			var cmd = el.getAttribute('href');
+			if (cmd && cmd !== '#') exec(cmd, function (err) {
 				if (err) console.error(err);
 			});
 		}
-		else if (el.matches('widget a.link')) shell.openExternal(el.href);
+		else if (el.matches('widget a.link')) {
+			var lnk = el.getAttribute('href');
+			if (lnk && lnk !== '#') shell.openExternal(lnk);
+		}
 
 
 	});

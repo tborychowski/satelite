@@ -10,7 +10,7 @@ html, body {
 
 a { color: #fff; text-decoration: none; color: inherit; }
 
-#app { padding: 0 0 0 5px; overflow: hidden; }
+#app { padding: 0 0 0 5px; overflow: auto; position: absolute; top: 0; bottom: 0; }
 
 widget { min-width: 50px; min-height: 50px; margin: 0 0 1px 0; padding: 20px 0;
 	float: right; overflow: hidden; cursor: default; user-select: none; position: relative;
@@ -20,7 +20,7 @@ widget { min-width: 50px; min-height: 50px; margin: 0 0 1px 0; padding: 20px 0;
 
 widget[size="small"] { width: 25%; height: 50px; padding: 17px 0; font-size: 16px; text-align: center; }
 widget[size="medium"] { width: 50%; height: 100px; text-align: center; }
-widget[size="large"] { width: auto; float: none; display: block; clear: both; }
+widget[size="large"] { width: 100%; float: none; display: block; clear: both; }
 
 
 widget[size="small"]+widget[size="small"],

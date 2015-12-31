@@ -1,0 +1,20 @@
+.trash { color: #aaa; position: fixed; bottom: 0; }
+.trash .empty-trash:hover { text-decoration: underline; color: red; }
+
+
+.trash.large { height: auto; padding: 10px 20px; }
+.trash.large i { float: left; font-size: 64px; margin-right: 30px; }
+.trash.large .size { float: right; clear: right; margin: 15px 0 5px; }
+.trash.large .empty-trash { float: right; clear: right; }
+
+
+.trash.medium { height: auto; padding: 10px 10px 10px 20px; text-align: left; }
+.trash.medium i { float: left; font-size: 48px; margin-right: 10px; }
+.trash.medium .size { display: block; margin: 10px 0 3px; }
+
+
+.trash.small { padding: 0; text-align: center; font-size: 12px; }
+.trash.small i { display: block; font-size: 32px; margin: 3px 0 -2px; }
+.trash.small .size { display: block; margin: 0; }
+.trash.small .empty-trash { display: none; }
+
