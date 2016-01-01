@@ -15,9 +15,6 @@ function getItemHtml(item) {
 		'</a></li>';
 }
 
-function getHtml (data) {
-	return '<ul>' + data.map(getItemHtml.bind(this)).join('') + '</ul>';
-}
 
 
 class Widget {
@@ -29,14 +26,12 @@ class Widget {
 	}
 
 	render (data) {
-		data = data || [];
-		let newHtml = getHtml.call(this, data);
+		let newHtml = '<ul>' + (data || []).map(getItemHtml).join('') + '</ul>';
 		if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
 	}
 
 	tick () {
-		disks.get()
-			.then(this.render.bind(this));
+		disks.get().then(this.render.bind(this));
 	}
 }
 

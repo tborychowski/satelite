@@ -1,8 +1,10 @@
 (function () {
-	var theme = require('./theme');
-	var widgets = require('./widgets');
-	var shell = require('electron').shell;
-	var exec = require('child_process').exec;
+	'use strict';
+
+	const theme = require('./theme');
+	const widgets = require('./widgets');
+	const shell = require('electron').shell;
+	const exec = require('child_process').exec;
 
 
 	// must be in order
@@ -14,24 +16,22 @@
 
 
 
-	document.addEventListener('click', function (e) {
+	document.addEventListener('click', (e) => {
 		var el = e.target;
 
 		// don't open links in itself
-		if (el.matches('widget a') || el.matches('widget a *')) {
-			e.preventDefault();
-		}
+		if (el.matches('widget a') || el.matches('widget a *')) e.preventDefault();
 
 		// open links in browser
 		if (el.matches('widget a.link *')) el = el.closest('.link');
 		if (el.matches('widget a.cmd')) {
-			var cmd = el.getAttribute('href');
-			if (cmd && cmd !== '#') exec(cmd, function (err) {
+			let cmd = el.getAttribute('href');
+			if (cmd && cmd !== '#') exec(cmd, (err) => {
 				if (err) console.error(err);
 			});
 		}
 		else if (el.matches('widget a.link')) {
-			var lnk = el.getAttribute('href');
+			let lnk = el.getAttribute('href');
 			if (lnk && lnk !== '#') shell.openExternal(el.href);
 		}
 

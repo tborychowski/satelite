@@ -4,7 +4,6 @@ const weather = require('./weather');
 const theme = 'img-real';
 
 function getForecastHtml (day) {
-	day = day || {};
 	return '<td class="weather-day">' +
 		'<div class="weather-date">' + (day.day || '') + '</div>' +
 		'<img class="weather-icon" src="../widgets/weather/' + theme + '/' + (day.code || 30) + '.png" />' +
@@ -14,7 +13,6 @@ function getForecastHtml (day) {
 }
 
 function getHtml (json) {
-	json = json || { forecast: [1,1,1,1,1] };
 	let forecast = json.forecast.map(getForecastHtml).join('');
 	return '<div class="weather-today">' +
 			'<div class="weather-today-text">' +
@@ -22,7 +20,6 @@ function getHtml (json) {
 					(json.location || '') + '</a></div>' +
 				'<div class="weather-desc">' + (json.desc || '') + '</div>' +
 				'<div class="weather-wind">Temp: ' + (json.temp || '') + '</div>' +
-				// '<div class="weather-wind">Real: ' + (json.feelslike || '') + '</div>' +
 				'<div class="weather-wind">Wind: ' + (json.wind || '') + '</div>' +
 				'<div class="weather-wind">Humid: ' + (json.humidity || '') + '</div>' +
 				'<div class="weather-wind">Press: ' + (json.pressure || '') + '</div>' +
@@ -34,6 +31,7 @@ function getHtml (json) {
 }
 
 
+
 class Widget {
 	constructor (el, params, config) {
 		this.el = el;
@@ -43,7 +41,7 @@ class Widget {
 	}
 
 	render (data) {
-		let newHtml = getHtml(data);
+		let newHtml = getHtml(data || { forecast: [{},{},{},{},{}] });
 		if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
 	}
 

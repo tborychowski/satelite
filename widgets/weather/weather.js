@@ -1,11 +1,13 @@
-var Parser = require('xml2js');
-var Req = require('request-promise');
+'use strict';
+
+const Parser = require('xml2js');
+const Req = require('request-promise');
 var url = '';
 
 function parseXml (xml) {
 	// var res = Parser.toJson(resp, { object: true, coerce: true });
-	return new Promise(function (resolve, reject) {
-		Parser.parseString(xml, function (err, resp) {
+	return new Promise((resolve, reject) => {
+		Parser.parseString(xml, (err, resp) => {
 			if (err || !resp) return reject(err);
 			resp = resp.rss.channel[0];
 			if (!resp) return reject('Parse error');
@@ -14,14 +16,18 @@ function parseXml (xml) {
 	});
 }
 
+function getNode (json, name) {
+	return json['yweather:' + name][0].$;
+}
 
 function processData(json) {
-	var loc = json['yweather:location'][0].$,
-		wind = json['yweather:wind'][0].$,
-		atmo = json['yweather:atmosphere'][0].$,
-		cond = json.item[0]['yweather:condition'][0].$,
-		units = json['yweather:units'][0].$,
-		forecast = json.item[0]['yweather:forecast'].map(function (item) { return item.$; });
+	let loc = getNode(json, 'location'),
+		wind = getNode(json, 'wind'),
+		atmo = getNode(json, 'atmosphere'),
+		units = getNode(json, 'units'),
+		cond = getNode(json.item[0], 'condition'),
+		forecast = json.item[0]['yweather:forecast'].map((item) => item.$);
+
 	return {
 		location: loc.city + ', ' + loc.country,
 		desc: cond.text,
@@ -38,9 +44,8 @@ function processData(json) {
 }
 
 
-module.exports = function (woeid) {
-	url = 'http://weather.yahooapis.com/forecastrss?u=c&w=' + woeid;
-	return Req(url)
+module.exports = (woeid) => {
+	return Req(url = 'http://weather.yahooapis.com/forecastrss?u=c&w=' + woeid)
 		.then(parseXml)
 		.then(processData);
 };

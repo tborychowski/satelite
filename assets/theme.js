@@ -1,10 +1,13 @@
-var FS = require('fs'),
-	Path = require('path');
+'use strict';
 
-var themesRoot = Path.join(__dirname, '..', 'themes'), theme = 'default';
+const FS = require('fs');
+const Path = require('path');
 
-function injectStyle (css) {
-	var link, stat;
+const themesRoot = Path.join(__dirname, '..', 'themes');
+const theme = 'default';
+
+function injectCss (css) {
+	let link, stat;
 	try { stat = FS.statSync(css); } catch (e) { stat = null; }
 	if (!stat || !stat.isFile()) return;
 	link = document.createElement('link');
@@ -15,17 +18,17 @@ function injectStyle (css) {
 
 
 function render () {
-	var fileName = Path.join(themesRoot, theme, 'index.html'),
-		tpl = FS.readFileSync(fileName).toString();
+	let fileName = Path.join(themesRoot, theme, 'index.html');
+	let tpl = FS.readFileSync(fileName).toString();
 	document.getElementById('app').innerHTML = tpl;
 }
 
-function injectThemeStyle () {
-	injectStyle(Path.join(themesRoot, theme, 'index.css'));
+function injectStyle () {
+	injectCss(Path.join(themesRoot, theme, 'index.css'));
 }
 
 
 module.exports = {
-	render: render,
-	injectStyle: injectThemeStyle,
+	render,
+	injectStyle,
 };

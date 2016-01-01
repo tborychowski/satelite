@@ -1,5 +1,7 @@
-var drivelist = require('drivelist');
-var diskspace = require('diskspace');
+'use strict';
+
+const drivelist = require('drivelist');
+const diskspace = require('diskspace');
 
 
 function formatSize(size) {
@@ -9,19 +11,16 @@ function formatSize(size) {
 
 
 function get () {
-	return new Promise(function (resolve, reject) {
-		drivelist.list(function(err, disks) {
-			if (err) return reject(err);
-			resolve(disks);
-		});
+	return new Promise((resolve, reject) => {
+		drivelist.list((err, disks) => err ? reject(err) : resolve(disks));
 	});
 }
 
 
 function format(disks) {
 	return disks
-		.filter(function (d) { return !!d.mountpoint; })
-		.map(function (d) {
+		.filter((d) => !!d.mountpoint)
+		.map((d) => {
 			d.size = formatSize(d.size);
 			d.mountpoint = d.mountpoint.replace(/\,$/, '');	// bug in drivelist adds comma to name
 			return d;
@@ -30,8 +29,8 @@ function format(disks) {
 
 
 function getDiskSpace (disk) {
-	return new Promise (function (resolve, reject) {
-		diskspace.check(disk.mountpoint, function (err, total, free, status) {
+	return new Promise ((resolve, reject) => {
+		diskspace.check(disk.mountpoint, (err, total, free, status) => {
 			if (err) return reject(err);
 			disk.total = total;
 			disk.free = free;
@@ -50,12 +49,10 @@ function getSpaces (disks) {
 
 
 module.exports = {
-	get: function () {
+	get: () => {
 		return get()
 			.then(format)
 			.then(getSpaces)
-			.catch(function (err) {
-				console.error(err);
-			});
+			.catch(console.error.bind(console));
 	}
 };

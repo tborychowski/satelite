@@ -9,7 +9,7 @@ let longDate = 'dddd, Do MMMM',
 
 function getHtml (size) {
 	var now = moment(),
-		dateFormat = size === 'large' ? longDate : shortDate;
+		dateFormat = (size === 'large' ? longDate : shortDate);
 
 	return '<div class="clock-hour">' + now.format(hour) + '</div>' +
 		'<div class="clock-date">' + now.format(dateFormat) + '</div>';

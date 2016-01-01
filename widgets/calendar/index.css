@@ -1,23 +1,20 @@
+widget.calendar { padding: 0; }
 widget[size="large"].calendar,
 widget[size="medium"].calendar,
 widget[size="small"].calendar { text-align: left; }
 
 .calendar { min-height: 100px; }
 
-.calendar .scroller { overflow-y: scroll; padding: 10px 15px 20px;
-	position: absolute; top: 0; bottom: 0; left: 0; right: -20px;
+.calendar .scroller { overflow-y: scroll; padding: 20px;
+	position: relative; left: 0; right: -20px; height: 100%; width: calc(100% + 20px);
 }
 
-.calendar .badge { position: absolute;
-	right: 40px;
-	top: 20px;
-	z-index: -1;
-	font-size: 72px;
-	color: rgba(255,255,255,0.2);
+.calendar .badge { position: absolute; right: 40px; top: 20px; z-index: -1;
+	font-size: 72px; color: rgba(255,255,255,0.2);
 }
 
 .calendar h1 { font-size: 16px; font-weight: normal; text-align: left;
-	margin: 10px 0 0; padding: 5px 0; text-transform: uppercase;
+	margin: 0; padding: 5px 0; text-transform: uppercase;
 }
 .calendar ul { margin: 0; padding: 0; list-style: none; }
 .calendar .event { padding: 5px; margin-left: 20px; }

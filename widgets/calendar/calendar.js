@@ -1,5 +1,7 @@
-var request = require('request-promise');
-var moment = require('moment');
+'use strict';
+
+const request = require('request-promise');
+const moment = require('moment');
 
 // moment relative formatting
 var relatives = {
@@ -27,17 +29,17 @@ function parseDate (val) {
 	if (reg.test(val)) return new Date(val.replace(reg, '$1-$2-$3:$4:$5'));
 }
 
-var handlers = {
-	summary: function (v) { return v; },
-	description: function (v) { return v; },
+let handlers = {
+	summary: (v) => v,
+	description: (v) => v,
 	dtstart: parseDate,
 	dtend: parseDate,
-	rrule: function (params) {
+	rrule: (params) => {
 		//e.g FREQ=YEARLY;WKST=MO;UNTIL=20110504T000000Z
-		var rules = {};
-		params.split(';').forEach(function (r) {
+		let rules = {};
+		params.split(';').forEach(r => {
 			r = r.split('=');
-			var n = r[0].toLowerCase(), v = r[1];
+			let n = r[0].toLowerCase(), v = r[1];
 			if (n === 'until') rules[n] = parseDate(v);
 			else rules[n] = v;
 		});
@@ -53,21 +55,21 @@ var handlers = {
  * This only covers regular, full-day and recurrent events (hopefully)
  */
 function parseICS (str) {
-	var calName = '', events = [], lines = str.split('\n'), e = 0, read = false;
+	let calName = '', events = [], lines = str.split('\n'), e = 0, read = false;
 
-	for (var i = 0, len = lines.length; i < len; i++) {
-		var line = lines[i].trim();
+	for (let i = 0, len = lines.length; i < len; i++) {
+		let line = lines[i].trim();
 
 		// gather multiline strings (they are indented with a space)
 		while (i + 1 < len && lines[i + 1].match(/^ /)) line += lines[i++].trim();
 
-		var dataLine = line.split(':');
+		let dataLine = line.split(':');
 		if (dataLine.length < 2) continue;
 
-		var name = dataLine[0].split(';')[0].toLowerCase();
+		let name = dataLine[0].split(';')[0].toLowerCase();
 
 		dataLine.shift();
-		var value = dataLine.join(':').replace('\\,', ',');
+		let value = dataLine.join(':').replace('\\,', ',');
 
 		if (name === 'x-wr-calname') calName = value;
 		else if (name === 'begin' && value === 'VEVENT') {
@@ -84,10 +86,10 @@ function parseICS (str) {
 
 
 function getFutureEvents (events) {
-	return events.filter(function (ev) {
-		var now = new Date();
+	let now = new Date();
+	return events.filter((ev) => {
 		if (ev.rrule) {
-			var end = now;
+			let end = now;
 			if (ev.rrule.until) end = ev.rrule.until;
 			if (ev.rrule.count) end = moment(ev.dtend).add(ev.rrule.count, freqs[ev.rrule.freq]).toDate();
 			return end >= now;	// if no "until" or "count" - event repeats forever
@@ -98,9 +100,9 @@ function getFutureEvents (events) {
 
 
 function updateRecurrentEvent (ev, addYr) {
-	var freq = ev.rrule.freq;
-	var now = moment().add(addYr || 0, 'year');
-	var y = now.year(), m = now.month(), w = now.week(), d = now.date();
+	let freq = ev.rrule.freq;
+	let now = moment().add(addYr || 0, 'year');
+	let y = now.year(), m = now.month(), w = now.week(), d = now.date();
 
 	ev.start = ev.start.year(y);
 	ev.end = ev.end.year(y);
@@ -127,7 +129,7 @@ function updateRecurrentEvent (ev, addYr) {
 	return ev;
 }
 function momentize (events) {
-	events.forEach(function (ev) {
+	events.forEach(ev => {
 		ev.start = moment(ev.dtstart);
 		ev.end = moment(ev.dtend);
 		ev.fullday = ev.end.diff(ev.start, 'days') >= 1;
@@ -139,27 +141,26 @@ function momentize (events) {
 
 
 function limitTo (days) {
-	return function (events) {
+	return (events) => {
 		days = days || 2;
-		var lim = new Date();
+		let lim = new Date();
 		lim.setDate(lim.getDate() + days);
-		return events.filter(function (ev) { return ev.dtstart <= lim; });
+		return events.filter((ev) => ev.dtstart <= lim);
 	};
 }
 
 
 function getEventsForDay (events, day) {
-	return events.filter(function (ev) {
+	return events.filter((ev) => {
 		if (ev.fullday) return day.isBetween(ev.dtstart, ev.dtend);
-		return day.isSame(ev.dtstart, 'day') ||
-			day.isSame(ev.dtend, 'day');
+		return day.isSame(ev.dtstart, 'day') || day.isSame(ev.dtend, 'day');
 	});
 }
 function groupByDays (showDays) {
-	return function (events) {
-		var days = [], day = moment();
+	return (events) => {
+		let days = [], day = moment();
 		while (showDays) {
-			var dayEvents = getEventsForDay(events, day);
+			let dayEvents = getEventsForDay(events, day);
 			if (dayEvents.length) days.push({ day: day.calendar(null, relatives), events: dayEvents });
 			day = day.add(1, 'days');
 			showDays--;
@@ -170,7 +171,7 @@ function groupByDays (showDays) {
 
 
 function getAgenda (config) {
-	var cals = config.map(function (url) {
+	let cals = config.map((url) => {
 		return request(url)
 			.then(parseICS)
 			.then(getFutureEvents)
@@ -178,16 +179,16 @@ function getAgenda (config) {
 			.then(getFutureEvents);
 	});
 
-	return Promise.all(cals).then(function (events) {
+	return Promise.all(cals).then((events) => {
 		// merge events from all calendars
-		return [].concat.apply([], events).sort(function (a, b) { return a.dtstart - b.dtstart; });
+		return [].concat.apply([], events).sort((a, b) => a.dtstart - b.dtstart);
 	});
 }
 
 
 
 module.exports = {
-	limitTo: limitTo,
-	groupByDays: groupByDays,
-	getAgenda: getAgenda,
+	limitTo,
+	groupByDays,
+	getAgenda,
 };

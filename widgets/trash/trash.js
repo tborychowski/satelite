@@ -1,19 +1,16 @@
 'use strict';
 
-var OS = require('os');
-var FS = require('fs');
-var Path = require('path');
-var exec = require('child_process').exec;
-var drivelist = require('drivelist');
-var emptyTrash = require('empty-trash');
+const OS = require('os');
+const FS = require('fs');
+const Path = require('path');
+const exec = require('child_process').exec;
+const drivelist = require('drivelist');
+const empty = require('empty-trash');
 
 
 function get () {
-	return new Promise(function (resolve, reject) {
-		drivelist.list(function(err, disks) {
-			if (err) return reject(err);
-			resolve(disks);
-		});
+	return new Promise((resolve, reject) => {
+		drivelist.list((err, disks) => err ? reject(err) : resolve(disks));
 	});
 }
 
@@ -21,8 +18,8 @@ function get () {
 function getTrash(disks) {
 	var uid = process.getuid(), homedir = OS.homedir();
 	return disks
-		.filter(function (d) { return !!d.mountpoint; })
-		.map(function (d) {
+		.filter((d) => !!d.mountpoint)
+		.map((d) => {
 			d.mountpoint = d.mountpoint.replace(/\,$/, '');	// bug in drivelist adds comma to name
 
 			// TODO: update for Win and OSX
@@ -38,24 +35,23 @@ function getTrash(disks) {
 
 
 function getTrashItemCount (t) {
-	return new Promise(function (resolve, reject) {
-		FS.readdir(t.trashPath + '/files', function (err, itemCount) {
-			if (err) return reject(err);
-			t.itemCount = itemCount.length;
+	return new Promise((resolve) => {
+		FS.readdir(t.trashPath + '/files', (err, itemCount) => {
+			t.itemCount = (err ? 0: itemCount.length);
 			return resolve(t);
 		});
 	});
 }
 
 function getTrashSize (t) {
-	return new Promise(function (resolve, reject) {
+	return new Promise((resolve, reject) => {
 
 		// TODO: update for Win and OSX
 
-		exec('du -sB1 ' + t.trashPath, function (err, stdout) {
+		exec('du -sB1 ' + t.trashPath, (err, stdout) => {
 			if (err) return reject(err);
-			t.trashSize = parseInt(('' + stdout).trim().split('\t')[0], 10);
-			if (!t.itemCount) t.trashSize = 0;
+			let size = ('' + stdout).trim().split('\t')[0];
+			t.trashSize = t.itemCount ? parseInt(size, 10) : 0;
 			return resolve(t);
 		});
 	});
@@ -63,28 +59,27 @@ function getTrashSize (t) {
 
 
 function getSizes (trashes) {
-	var sizes = trashes.map(function (t) {
-		return getTrashItemCount(t).then(getTrashSize);
-	});
+	var sizes = trashes.map((t) => getTrashItemCount(t).then(getTrashSize));
 
 	return Promise.all(sizes)
-		.then(function (data) {
-			var sum = data.reduce(function(pv, cv) { return pv + cv.trashSize; }, 0);
-			var items = data.reduce(function(pv, cv) { return pv + cv.itemCount; }, 0);
-			sum = sum / 1024 / 1024;
-			return { size: Math.round(sum * 100) / 100, items: items };
+		.then((data) => {
+			let sum = data.reduce((pv, cv) =>  pv + cv.trashSize, 0);
+			let items = data.reduce((pv, cv) =>  pv + cv.itemCount, 0);
+			let size = Math.round(sum / 1024 / 1024 * 100) / 100;
+			return { size, items };
 		});
 }
 
 
 
 module.exports = {
-	get: function () {
+	empty,
+
+	get: () => {
 		return get()
 			.then(getTrash)
 			.then(getSizes)
 			.catch(console.error.bind(console));
-	},
+	}
 
-	empty: emptyTrash
 };

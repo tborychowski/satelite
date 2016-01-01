@@ -1,6 +1,6 @@
 'use strict';
 
-function getHtml (item) {
+function getItemHtml (item) {
 	if (typeof item === 'string') item = { path: item };
 
 	let cls = 'link';
@@ -18,14 +18,11 @@ function getHtml (item) {
 }
 
 
-function getGroupsHtml (groups) {
-	return groups.map(function (group) {
-		group = group || {};
-		if (typeof group === 'string' || group.path || group.cmd) group = { items: [group]};
-		let name = group.name ? '<h1>' + group.name + '</h1>' : '';
-		return name + '<ul>' + group.items.map(getHtml).join('') + '</ul>';
-	}).join('');
-
+function getGroupHtml (group) {
+	group = group || {};
+	if (typeof group === 'string' || group.path || group.cmd) group = {items: [group]};
+	let name = group.name ? '<h1>' + group.name + '</h1>' : '';
+	return name + '<ul>' + group.items.map(getItemHtml).join('') + '</ul>';
 }
 
 
@@ -39,7 +36,7 @@ class Widget {
 
 	render () {
 		if (!Array.isArray(this.config)) this.config = [this.config];
-		let newHtml = getGroupsHtml.call(this, this.config);
+		let newHtml = this.config.map(getGroupHtml).join('');
 		if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
 	}
 

@@ -11,9 +11,8 @@ function getEventHtml (ev) {
 function getHtml (size, data) {
 	data = data || [];
 	return '<div class="scroller">' +
-		data.map(function (day) {
-			return '<h1>' + day.day + '</h1><ul>' + day.events.map(getEventHtml).join('') + '</ul>';
-		}).join('') +
+		data.map(day => '<h1>' + day.day + '</h1><ul>' +
+			day.events.map(getEventHtml).join('') + '</ul>').join('') +
 		'</div>' +
 		'<i class="badge ion-calendar"></i>';
 }
@@ -43,7 +42,7 @@ class Widget {
 			.then(calendar.limitTo(this.showDays))
 			.then(calendar.groupByDays(this.showDays))
 			.then(this.render.bind(this))
-			.catch(function (err) { console.error('' + err); });
+			.catch(console.error.bind(console));
 	}
 }
 

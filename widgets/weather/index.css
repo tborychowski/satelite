@@ -1,20 +1,20 @@
 .weather { padding: 0; }
 
-.weather-today { overflow: hidden; margin: 20px 5px 0; }
-.weather-badge { float: right; clear: right; margin: 4px 7px -2em 0; font-size: 19px; }
-.weather-icon { float: right; clear: right; margin: 5px 10px 0 -100px;
+.weather-today { overflow: hidden; margin: 20px; }
+.weather-badge { float: right; clear: right; margin: 4px 0 -2em 0; font-size: 19px; }
+.weather-icon { float: right; clear: right; margin: 5px 0 0 -100px;
 	width: 60%;
 	min-width: 128px;
 	max-width: 300px;
 }
 
-.weather-today-text { float: left; width: 50%; min-width: 120px; padding-left: 10px; }
+.weather-today-text { float: left; width: 50%; min-width: 120px; }
 
 .weather-location { line-height: 1.6; }
 .weather-desc { line-height: 1.6; }
 .weather-wind { line-height: 1.6; font-size: 12px; }
 
-.weather-forecast { margin: 10px 0 0; border-top: 1px solid rgba(255,255,255,0.1); }
+.weather-forecast { margin: 0; border-top: 1px solid rgba(255,255,255,0.1); }
 .weather-forecast table { table-layout: fixed; width: 100%; border-collapse: collapse; }
 .weather-day { vertical-align: top; text-align: center; padding: 10px 5px; }
 .weather-day .weather-icon { width: 80%; float: none; margin: 10px 0; min-width: 0; }

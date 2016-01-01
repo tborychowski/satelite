@@ -3,12 +3,13 @@
 const trash = require('./trash');
 
 function getHtml (data) {
-	if (!data || !data.size) return '<i class="ion-trash-a empty"></i>';
-
-	return '<i class="ion-trash-a"></i>' +
-		'<span class="size">' + data.size + ' MB</span>' +
-		'<span class="items">' + data.items + ' item' + (data.items > 1 ? 's' : '') + '</span>' +
-		'<a href="#" class="link empty-trash">empty</a>';
+	var emptyCls = (data && data.size ? '' : ' empty');
+	return '<div class="details' + emptyCls + '">' +
+			'<span class="items">' + data.items + ' item' + (data.items > 1 ? 's' : '') + '</span>' +
+			'<span class="size">' + data.size + ' MB</span>' +
+			'<a href="#" class="link empty-trash">empty</a>' +
+		'</div>' +
+		'<i class="ion-trash-a' + emptyCls + '"></i>';
 }
 
 
@@ -19,13 +20,14 @@ class Widget {
 		this.config = config;
 		this.render();
 
-		el.addEventListener('click', function (e) {
-			if (e.target.matches('.empty-trash')) trash.empty().then(this.tick.bind(this));
-		}.bind(this));
+		let tick = this.tick.bind(this);
+		el.addEventListener('click', (e) => {
+			if (e.target.matches('.empty-trash')) trash.empty().then(tick);
+		});
 	}
 
 	render (data) {
-		let newHtml = getHtml.call(this, data || {});
+		let newHtml = getHtml(data || {});
 		if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
 	}
 

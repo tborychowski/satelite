@@ -1,14 +1,17 @@
-var FS = require('fs'),
-	Path = require('path');
+'use strict';
 
-var widgets = [],
+const FS = require('fs');
+const Path = require('path');
+
+let widgets = [],
 	widgetsRoot = Path.join(__dirname, '..', 'widgets'),
 	config = require(Path.join(__dirname, '..', 'config.json'));
 
 if (!config || !config.widgets) config = { widgets: {} };
 
+
 function injectStyle (css) {
-	var link, stat;
+	let link, stat;
 	try { stat = FS.statSync(css); } catch (e) { stat = null; }
 	if (!stat || !stat.isFile()) return;
 	link = document.createElement('link');
@@ -19,45 +22,35 @@ function injectStyle (css) {
 
 
 function getAttrs (el) {
-	var attrs = {};
-	Array.prototype.slice.call(el.attributes).forEach(function(item) {
-		attrs[item.name] = item.value;
-	});
+	let attrs = {};
+	Array.prototype.slice.call(el.attributes).forEach((item) => attrs[item.name] = item.value);
 	return attrs;
 }
 
 
 
 function init () {
-	var nodes = document.getElementsByTagName('widget'), node, i = 0, attrs;
+	let nodes = document.getElementsByTagName('widget'), node, i = 0, attrs;
 
 	for (; node = nodes[i]; i++) {
 		attrs = getAttrs(node);
-		widgets.push({
-			name: attrs.widget,
-			attrs: attrs,
-			config: config.widgets[attrs.config || attrs.widget] || {},
-			interval: (attrs.interval ? attrs.interval * 1000 : null),
-			stylePath: Path.join(widgetsRoot, attrs.widget, 'index.css'),
-			node: node,
-			module: require(Path.join(widgetsRoot, attrs.widget, 'index.js')),
-		});
+		let cfg = config.widgets[attrs.config || attrs.widget] || {};
+		let interval = (attrs.interval ? attrs.interval * 1000 : null);
+		let stylePath = Path.join(widgetsRoot, attrs.widget, 'index.css');
+		let module = require(Path.join(widgetsRoot, attrs.widget, 'index.js'));
+		widgets.push({ name: attrs.widget, config: cfg, attrs, node, interval, stylePath, module });
 	}
 }
 
 
-function injectWidgetsStyles () {
-	var styles = {};
-	widgets.forEach(function (w) {
-		styles[w.stylePath] = 1;	// for uniqueness
-	});
+function injectStyles () {
+	let styles = {};
+	widgets.forEach((w) => styles[w.stylePath] = 1);	// for uniqueness
 	styles = Object.keys(styles);
-
 	styles.forEach(injectStyle);
 }
 
 function repeat () {
-	// console.log(this.name);
 	this.instance.tick.call(this.instance);
 	if (this.interval) setTimeout(this.repeat.bind(this), this.interval);
 }
@@ -74,7 +67,7 @@ function render () {
 
 
 module.exports = {
-	init: init,
-	injectStyles: injectWidgetsStyles,
-	render: render,
+	init,
+	injectStyles,
+	render,
 };
