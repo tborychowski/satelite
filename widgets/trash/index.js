@@ -1,12 +1,12 @@
 'use strict';
 
-const trash = require('./trash');
+const trash = require('bins');
 
 function getHtml (data) {
 	var emptyCls = (data && data.size ? '' : ' empty');
 	return '<div class="details' + emptyCls + '">' +
 			'<span class="items">' + data.items + ' item' + (data.items > 1 ? 's' : '') + '</span>' +
-			'<span class="size">' + data.size + ' MB</span>' +
+			'<span class="size">' + data.hsize + '</span>' +
 			'<a href="#" class="link empty-trash">empty</a>' +
 		'</div>' +
 		'<i class="ion-trash-a' + emptyCls + '"></i>';
