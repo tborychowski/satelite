@@ -28,7 +28,7 @@ class Widget {
 		let el = this.el, tick = this.tick.bind(this);
 		el.onclick = (e) => {
 			if (e.target.matches('.empty-trash')) return bins.empty().then(tick);
-			if (process.platform === 'linux') shell.openExternal('trash:///');
+			if (process.platform === 'linux') shell.openItem('trash:///');
 			else if (process.platform === 'win32') shell.openItem('shell:RecycleBinFolder');
 			else shell.openItem(Path.join(OS.homedir(), '.Trash'));
 		};
