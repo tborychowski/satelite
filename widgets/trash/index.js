@@ -1,6 +1,7 @@
 'use strict';
 
-const trash = require('bins');
+const shell = require('electron').shell;
+const bins = require('bins');
 
 function getHtml (data) {
 	var emptyCls = (data && data.size ? '' : ' empty');
@@ -12,7 +13,6 @@ function getHtml (data) {
 		'<i class="ion-trash-a' + emptyCls + '"></i>';
 }
 
-
 class Widget {
 	constructor (el, params, config) {
 		this.el = el;
@@ -20,10 +20,35 @@ class Widget {
 		this.config = config;
 		this.render();
 
-		let tick = this.tick.bind(this);
-		el.addEventListener('click', (e) => {
-			if (e.target.matches('.empty-trash')) trash.empty().then(tick);
-		});
+		this.addEvents();
+	}
+
+	addEvents () {
+		let el = this.el, tick = this.tick.bind(this);
+		el.onclick = (e) => {
+			if (e.target.matches('.empty-trash')) return bins.empty().then(tick);
+			if (process.platform === 'linux') shell.openExternal('trash:///');
+			else if (process.platform === 'win32') shell.open('shell:RecycleBinFolder');
+			else shell.open('~/.Trash');
+		};
+
+		el.ondragover = (e) => {
+			e.preventDefault();
+			el.classList.add('dragover');
+		};
+
+		el.ondragleave = el.ondragend = (e) => {
+			e.preventDefault();
+			el.classList.remove('dragover');
+		};
+
+		el.ondrop = (e) => {
+			e.preventDefault();
+			el.classList.remove('dragover');
+			Array.from(e.dataTransfer.files || [])
+				.map(f => f.path)
+				.forEach(shell.moveItemToTrash);
+		};
 	}
 
 	render (data) {
@@ -32,7 +57,7 @@ class Widget {
 	}
 
 	tick () {
-		trash.get().then(this.render.bind(this));
+		bins.get().then(this.render.bind(this));
 	}
 }
 

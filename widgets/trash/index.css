@@ -23,3 +23,7 @@
 .trash.small .details { display: block; margin: 34px 0 0; float: none; text-align: center; }
 .trash.small .items,
 .trash.small .empty-trash { display: none; }
+
+
+.trash:hover { background-color: rgba(0,0,0, 0.5); }
+.trash.dragover { background-color: rgba(0,0,0, 0.9); }

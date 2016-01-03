@@ -16,6 +16,7 @@
     "moment": "^2.10.6",
     "request": "^2.67.0",
     "request-promise": "^1.0.2",
+    "trash": "^3.4.1",
     "xml2js": "^0.4.15"
   },
   "devDependencies": {
