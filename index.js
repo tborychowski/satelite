@@ -21,8 +21,9 @@ app.on('ready', () => {
 		transparent: true,
 		frame: false,
 		autoHideMenuBar: true,
-		skipTaskbar: true,
+		skipTaskbar: true
 	});
+
 	mainWindow.on('closed', () => mainWindow = null);
 
 	let bounds = mainWindow.getBounds(), width = 310;
@@ -38,11 +39,10 @@ app.on('ready', () => {
 	let contextMenu = Menu.buildFromTemplate([
 		{ label: 'Satelite', type: 'normal', enabled: false },
 		{ type: 'separator' },
-		{ label: 'Quit', type: 'normal', click: mainWindow.close }
+		{ label: 'Quit', type: 'normal', click: app.quit }
 	]);
 	appIcon.setToolTip('Satelite');
 	appIcon.setContextMenu(contextMenu);
-
 	setTimeout(() => mainWindow.loadURL('file://' + __dirname + '/assets/app.html'), 100);
 });
 
