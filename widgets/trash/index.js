@@ -1,5 +1,7 @@
 'use strict';
 
+const OS = require('os');
+const Path = require('path');
 const shell = require('electron').shell;
 const bins = require('bins');
 
@@ -19,7 +21,6 @@ class Widget {
 		this.size = params.size;
 		this.config = config;
 		this.render();
-
 		this.addEvents();
 	}
 
@@ -28,8 +29,8 @@ class Widget {
 		el.onclick = (e) => {
 			if (e.target.matches('.empty-trash')) return bins.empty().then(tick);
 			if (process.platform === 'linux') shell.openExternal('trash:///');
-			else if (process.platform === 'win32') shell.open('shell:RecycleBinFolder');
-			else shell.open('~/.Trash');
+			else if (process.platform === 'win32') shell.openItem('shell:RecycleBinFolder');
+			else shell.openItem(Path.join(OS.homedir(), '.Trash'));
 		};
 
 		el.ondragover = (e) => {

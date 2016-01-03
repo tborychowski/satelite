@@ -22,6 +22,7 @@ function getGroupHtml (group) {
 	group = group || {};
 	if (typeof group === 'string' || group.path || group.cmd) group = {items: [group]};
 	let name = group.name ? '<h1>' + group.name + '</h1>' : '';
+	group.items = group.items || [];
 	return name + '<ul>' + group.items.map(getItemHtml).join('') + '</ul>';
 }
 
