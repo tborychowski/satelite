@@ -12,7 +12,7 @@ A desktop sidebar/dashboard concept inspired by [conky](https://github.com/brndn
    - inoreader - get the unread feeds count
    - shortcuts - shortcuts to folders or apps
    - trash - show system trash with size and "empty" button
-   - weather - get the weather with a forecast using yahoo rss feed
+   - weather - get the weather with a forecast using yahoo weather api
 - it allows to easily create custom ones (javascript + html + css)
 - it is node-based - so you have access to all the node-power to create custom plugins/services
 - it has access to the host OS, so if you can run something in terminal - you can do here 
@@ -37,10 +37,8 @@ npm start &
 Some widgets might require a config. The structure is very simple:
 ```json
 {
-	"widgets": {
-		"widget-name": {
-			"option": "value"
-		}
+	"widget-name": {
+		"option": "value"
 	}
 }
 ```

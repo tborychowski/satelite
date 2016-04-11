@@ -1,66 +1,62 @@
 {
-	"widgets": {
-		"calendar": [
-			"https://calendar.google.com/calendar/ical/en.irish%23holiday%40group.v.calendar.google.com/public/basic.ics"
-		],
-		"inoreader": {
-			"appId": 0000000000,
-			"appKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-			"appName": "my-app-name",
-			"login": "",
-			"pass": ""
+	"calendar": [
+		"https://calendar.google.com/calendar/ical/en.irish%23holiday%40group.v.calendar.google.com/public/basic.ics"
+	],
 
-		},
+	"inoreader": {
+		"appId": 0000000000,
+		"appKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+		"appName": "my-app-name",
+		"login": "",
+		"pass": ""
 
-		"gmail": {
-			"login": "",
-			"pass": ""
-		},
+	},
 
-		"shortcuts-download": {
-			"icon": "ion-ios-download",
-			"path": "/mnt/Downloads/"
-		},
+	"gmail": {
+		"login": "",
+		"pass": ""
+	},
 
-		"shortcuts-script": {
-			"icon": "ion-happy-outline",
-			"cmd": "/path/script.sh"
-		},
+	"shortcuts-download": {
+		"icon": "ion-ios-download",
+		"path": "/mnt/Downloads/"
+	},
 
-		"shortcuts": {
-			"name": "Coding",
-			"items": [
-				"~/Projects/",
-				"~/Projects/project1",
-				"~/Projects/project2/"
-			]
-		},
+	"shortcuts-script": {
+		"icon": "ion-happy-outline",
+		"cmd": "/path/script.sh"
+	},
 
-		"shortcuts-media": [
-			{
-				"name": "Media",
-				"items": [
-					{
-						"icon": "ion-ios-download",
-						"path": "/mnt/Downloads/"
-					},
-					{
-						"name": "Movies",
-						"icon": "ion-ios-film",
-						"path": "/mnt/Movies/"
-
-					},
-					{
-						"name": "TV Shows",
-						"icon": "ion-ios-film",
-						"path": "/mnt/Shows"
-
-					}
-				]
-			}
+	"shortcuts": {
+		"name": "Coding",
+		"items": [
+			"~/Projects/",
+			"~/Projects/project1",
+			"~/Projects/project2/"
 		]
+	},
 
+	"shortcuts-media": [
+		{
+			"name": "Media",
+			"items": [
+				{
+					"icon": "ion-ios-download",
+					"path": "/mnt/Downloads/"
+				},
+				{
+					"name": "Movies",
+					"icon": "ion-ios-film",
+					"path": "/mnt/Movies/"
 
-	}
+				},
+				{
+					"name": "TV Shows",
+					"icon": "ion-ios-film",
+					"path": "/mnt/Shows"
 
+				}
+			]
+		}
+	]
 }

@@ -7,7 +7,7 @@ let widgets = [],
 	widgetsRoot = Path.join(__dirname, '..', 'widgets'),
 	config = require(Path.join(__dirname, '..', 'config.json'));
 
-if (!config || !config.widgets) config = { widgets: {} };
+if (!config) config = {};
 
 
 function injectStyle (css) {
@@ -34,7 +34,7 @@ function init () {
 
 	for (; node = nodes[i]; i++) {
 		attrs = getAttrs(node);
-		let cfg = config.widgets[attrs.config || attrs.widget] || {};
+		let cfg = config[attrs.config || attrs.widget] || {};
 		let interval = (attrs.interval ? attrs.interval * 1000 : null);
 		let stylePath = Path.join(widgetsRoot, attrs.widget, 'index.css');
 		let module = require(Path.join(widgetsRoot, attrs.widget, 'index.js'));

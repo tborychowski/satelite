@@ -16,7 +16,7 @@ function getHtml (json) {
 	let forecast = json.forecast.map(getForecastHtml).join('');
 	return '<div class="weather-today">' +
 			'<div class="weather-today-text">' +
-				'<div class="weather-location"><a class="link" href="' + (json.rssLink || '#') + '">' +
+				'<div class="weather-location"><a class="link" href="' + (json.link || '#') + '">' +
 					(json.location || '') + '</a></div>' +
 				'<div class="weather-desc">' + (json.desc || '') + '</div>' +
 				'<div class="weather-wind">Temp: ' + (json.temp || '') + '</div>' +
@@ -36,7 +36,7 @@ class Widget {
 	constructor (el, params, config) {
 		this.el = el;
 		this.size = params.size;
-		this.config = Object.assign({ woeid: params.woeid || '560743' }, config || {});
+		this.config = Object.assign({ city: params.city || 'dublin, ireland' }, config || {});
 		this.render();
 	}
 
@@ -46,7 +46,7 @@ class Widget {
 	}
 
 	tick () {
-		weather(this.config.woeid)
+		weather(this.config.city)
 			.then(this.render.bind(this))
 			.catch(console.error.bind(console));
 	}

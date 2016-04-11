@@ -9,17 +9,17 @@
   "main": "index.js",
   "dependencies": {
     "bins": "git://github.com/tborychowski/bins.git",
+    "continuation-local-storage": "^3.1.6",
     "diskspace": "^1.0.2",
     "drivelist": "^2.0.4",
     "imap": "^0.8.16",
     "ionicons": "^2.0.1",
     "moment": "^2.10.6",
     "request": "^2.67.0",
-    "request-promise": "^1.0.2",
-    "xml2js": "^0.4.15"
+    "request-promise": "^1.0.2"
   },
   "devDependencies": {
-    "electron-prebuilt": "^0.36.1"
+    "electron-prebuilt": "^0.36.12"
   },
   "scripts": {
     "start": "electron --enable-transparent-visuals --disable-gpu index.js"
