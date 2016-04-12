@@ -3,9 +3,9 @@
 const FS = require('fs');
 const Path = require('path');
 
-let widgets = [],
-	widgetsRoot = Path.join(__dirname, '..', 'widgets'),
-	config = require(Path.join(__dirname, '..', 'config.json'));
+let widgets = [];
+let widgetsRoot = Path.join(__dirname, '..', 'widgets');
+let config = require(Path.join(__dirname, '..', 'config.json'));
 
 if (!config) config = {};
 

@@ -10,7 +10,7 @@ html, body {
 
 a { color: #fff; text-decoration: none; color: inherit; }
 
-#app { padding: 0 0 0 5px; overflow: auto; position: absolute; top: 0; bottom: 0; }
+#app { padding: 0 0 0 0; overflow: auto; position: absolute; top: 0; bottom: 0; }
 
 widget { min-width: 50px; min-height: 50px; margin: 0 0 1px 0; padding: 20px 0;
 	float: right; overflow: hidden; cursor: default; user-select: none; position: relative;

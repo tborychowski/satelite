@@ -9,7 +9,7 @@
 .trash .empty.details { visibility: hidden; }
 
 
-.trash.large { position: fixed; bottom: 0; height: auto; padding: 12px 25px 10px; text-align: center; }
+.trash.large { height: auto; padding: 12px 25px 10px; text-align: center; }
 .trash.large i { font-size: 64px; position: absolute; left: 0; right: 0; }
 
 

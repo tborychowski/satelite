@@ -27,11 +27,12 @@ class Widget {
 		this.showDays = params.showdays || 2; // show agenda for this many days
 
 		if (params.height) this.el.style.height = params.height + 'px';
-
+		this.works = true;
 		this.render();
 	}
 
 	render (data) {
+		if (!this.works) return;
 		let newHtml = getHtml(this.size, data);
 		if (this.oldHtml !== newHtml) this.el.innerHTML = this.oldHtml = newHtml;
 	}
@@ -42,7 +43,9 @@ class Widget {
 			.then(calendar.limitTo(this.showDays))
 			.then(calendar.groupByDays(this.showDays))
 			.then(this.render.bind(this))
-			.catch(console.error.bind(console));
+			.catch(function (err) {
+				this.works = false;
+			}.bind(this));
 	}
 }
 

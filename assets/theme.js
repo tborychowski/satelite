@@ -4,7 +4,10 @@ const FS = require('fs');
 const Path = require('path');
 
 const themesRoot = Path.join(__dirname, '..', 'themes');
-const theme = 'default';
+let config = require(Path.join(__dirname, '..', 'config.json'));
+if (!config) config = { theme: 'default' };
+
+const theme = config.theme;
 
 function injectCss (css) {
 	let link, stat;

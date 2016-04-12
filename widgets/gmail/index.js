@@ -25,11 +25,13 @@ class Widget {
 		this.el = el;
 		this.size = params.size;
 		this.config = config;
+		this.works = true;
 		this.render();
 	}
 
 	render (data) {
 		data = data || {};
+		if (!this.works) return;
 		var newHtml = getHtml(this.size, data);
 		if (this.oldHtml !== newHtml) {
 			notify(data.unread);
@@ -38,7 +40,10 @@ class Widget {
 	}
 
 	tick () {
-		gmail.check(this.config).then(this.render.bind(this));
+		gmail.check(this.config).then(this.render.bind(this))
+		.catch(function () {
+			this.works = false;
+		}.bind(this));
 	}
 }
 

@@ -15,7 +15,9 @@ function init (config) {
 		user: config.login,
 		password: config.pass
 	});
-	imap.once('error', console.error.bind(console));
+	imap.once('error', function (err) {
+		console.error('gmail:', err);
+	});
 	// imap.once('end', function () { console.log('Connection ended'); });
 }
 
