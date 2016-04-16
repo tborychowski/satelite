@@ -10,13 +10,6 @@ function getHtml (size, resp) {
 		'</a>';
 }
 
-function notify (data) {
-	if (!data) return;
-	new Notification('Inoreader', {
-		body: 'You have ' + data + ' unread feed' + (data > 1 ? 's' : ''),
-		icon: 'file://' + Path.resolve(__dirname, 'icon.png')
-	});
-}
 
 
 
@@ -28,10 +21,19 @@ class Widget {
 		this.render();
 	}
 
+	notify (data) {
+		if (!data) return;
+		if (!this.config.notifications) return;
+		new Notification('Inoreader', {
+			body: 'You have ' + data + ' unread feed' + (data > 1 ? 's' : ''),
+			icon: 'file://' + Path.resolve(__dirname, 'icon.png')
+		});
+	}
+
 	render (data) {
 		let newHtml = getHtml(this.size, data);
 		if (this.oldHtml !== newHtml) {
-			notify(data);
+			this.notify(data);
 			this.el.innerHTML = this.oldHtml = newHtml;
 		}
 	}

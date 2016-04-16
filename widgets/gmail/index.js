@@ -11,13 +11,6 @@ function getHtml (size, data) {
 		'</a>';
 }
 
-function notify (data) {
-	if (!data) return;
-	new Notification('Gmail', {
-		body: 'You have ' + data + ' unread message' + (data > 1 ? 's' : ''),
-		icon: 'file://' + Path.resolve(__dirname, 'icon.png')
-	});
-}
 
 
 class Widget {
@@ -29,12 +22,21 @@ class Widget {
 		this.render();
 	}
 
+	notify (data) {
+		if (!data) return;
+		if (!this.config.notifications) return;
+		new Notification('Gmail', {
+			body: 'You have ' + data + ' unread message' + (data > 1 ? 's' : ''),
+			icon: 'file://' + Path.resolve(__dirname, 'icon.png')
+		});
+	}
+
 	render (data) {
 		data = data || {};
 		if (!this.works) return;
 		var newHtml = getHtml(this.size, data);
 		if (this.oldHtml !== newHtml) {
-			notify(data.unread);
+			this.notify(data.unread);
 			this.el.innerHTML = this.oldHtml = newHtml;
 		}
 	}
