@@ -24,7 +24,6 @@ function processData(json) {
 	const feelslike = Math.round((json.wind.chill - 32) * 5 / 9) + '°' + units.temperature;
 	const forecast = json.item.forecast;
 	forecast.length = 5;
-
 	return {
 		location,
 		desc: cond.text,

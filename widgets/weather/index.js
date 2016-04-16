@@ -22,7 +22,7 @@ function getHtml (json) {
 				'<div class="weather-wind">Temp: ' + (json.temp || '') + '</div>' +
 				'<div class="weather-wind">Wind: ' + (json.wind || '') + '</div>' +
 				'<div class="weather-wind">Humid: ' + (json.humidity || '') + '</div>' +
-				'<div class="weather-wind">Press: ' + (json.pressure || '') + '</div>' +
+				// '<div class="weather-wind">Press: ' + (json.pressure || '') + '</div>' +
 			'</div>' +
 			'<span class="weather-badge">' + (json.feelslike || '') + '</span>' +
 			'<img class="weather-icon" src="../widgets/weather/' + theme + '/' + (json.code || 30) + '.png" />' +

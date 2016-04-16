@@ -8,7 +8,7 @@
 	max-width: 300px;
 }
 
-.weather-today-text { float: left; width: 65%; min-width: 120px; }
+.weather-today-text { float: left; width: 65%; min-width: 120px; height: 121px; }
 
 .weather-location { line-height: 1.6; }
 .weather-desc { line-height: 1.6; }
