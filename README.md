@@ -48,7 +48,7 @@ See [`config-sample.json`](https://github.com/tborychowski/satelite/blob/master/
 
 
 ### License
-- This App: MIT
+- This App: GPL-3.0
 - [ion icons](http://ionicons.com/): MIT
 - [Satelite icon](https://www.iconfinder.com/icons/531906/antenna_building_communication_radar_satelite_icon#size=128): [Creative Commons (Attribution-Share Alike 3.0 Unported)](http://creativecommons.org/licenses/by-sa/3.0/)
 - [Satelite tray icon](https://www.iconfinder.com/icons/322495/satelite_icon#size=128): Free
