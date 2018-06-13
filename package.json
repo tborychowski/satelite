@@ -25,5 +25,5 @@
     "start": "electron --enable-transparent-visuals --disable-gpu index.js"
   },
   "author": "tom",
-  "license": "MIT"
+  "license": "GPL-3.0-or-later"
 }
